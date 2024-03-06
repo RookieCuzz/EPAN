@@ -1,0 +1,1909 @@
+24-03-04 17:54:06.420 - INFO:   name: EPANx4_DIV2K
+  suffix: None
+  model: sr
+  distortion: sr
+  scale: 4
+  crop_border: None
+  save_img: True
+  gpu_ids: [0]
+  datasets:[
+    test1:[
+      name: Set5
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Set5/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Set5/LR_bicubic/X4
+      phase: test1
+      scale: 4
+      data_type: img
+    ]
+    test2:[
+      name: Set14
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Set14/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Set14/LR_bicubic/X4
+      phase: test2
+      scale: 4
+      data_type: img
+    ]
+    test3:[
+      name: B100
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/B100/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/B100/LR_bicubic/X4
+      phase: test3
+      scale: 4
+      data_type: img
+    ]
+    test4:[
+      name: Urban100
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Urban100/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Urban100/LR_bicubic/X4
+      phase: test4
+      scale: 4
+      data_type: img
+    ]
+    test5:[
+      name: Manga109
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Manga109/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Manga109/LR_bicubic/X4
+      phase: test5
+      scale: 4
+      data_type: img
+    ]
+  ]
+  network_G:[
+    which_model_G: EPAN
+    in_nc: 3
+    out_nc: 3
+    nf: 40
+    unf: 24
+    nb: 16
+    scale: 4
+  ]
+  path:[
+    pretrain_model_G: /home/xxl/PAN/experiments/EPANx4_DIV2K/models/latest_G.pth
+    root: /home/xxl/PAN
+    results_root: /home/xxl/PAN/results/EPANx4_DIV2K
+    log: /home/xxl/PAN/results/EPANx4_DIV2K
+  ]
+  is_train: False
+
+24-03-04 17:54:06.421 - INFO: Dataset [LQGTDataset - Set5] is created.
+24-03-04 17:54:06.421 - INFO: Number of test images in [Set5]: 5
+24-03-04 17:54:06.422 - INFO: Dataset [LQGTDataset - Set14] is created.
+24-03-04 17:54:06.422 - INFO: Number of test images in [Set14]: 14
+24-03-04 17:54:06.422 - INFO: Dataset [LQGTDataset - B100] is created.
+24-03-04 17:54:06.422 - INFO: Number of test images in [B100]: 100
+24-03-04 17:54:06.423 - INFO: Dataset [LQGTDataset - Urban100] is created.
+24-03-04 17:54:06.423 - INFO: Number of test images in [Urban100]: 100
+24-03-04 17:54:06.424 - INFO: Dataset [LQGTDataset - Manga109] is created.
+24-03-04 17:54:06.424 - INFO: Number of test images in [Manga109]: 109
+24-03-04 17:54:09.234 - INFO: Network G structure: DataParallel - EPAN, with parameters: 296,803
+24-03-04 17:54:09.235 - INFO: EPAN(
+  (conv_first): Conv2d(3, 40, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (SCPA_trunk): Sequential(
+    (0): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (1): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (2): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (3): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (4): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (5): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (6): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (7): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (8): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (9): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (10): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (11): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (12): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (13): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (14): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (15): ESCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (FDB): FDB(
+        (fdu1): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu2): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (fdu3): FeatureDistillationUnit(
+          (conv0): Conv2d(5, 5, kernel_size=(1, 1), stride=(1, 1))
+          (conv1): Conv2d(15, 20, kernel_size=(1, 1), stride=(1, 1))
+          (epa): EPA(
+            (convPath1): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (convPath2): Conv2d(10, 10, kernel_size=(1, 1), stride=(1, 1))
+            (sigmoid): Sigmoid()
+            (depthwise_conv1): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv2): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv3): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=10)
+            )
+            (depthwise_conv5): DepthwiseConv2d(
+              (depthwise_conv): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=20)
+            )
+            (conv1x1): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+          )
+          (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+        )
+        (cca): VarianceChannelAttention(
+          (fc): Sequential(
+            (0): Linear(in_features=20, out_features=5, bias=False)
+            (1): ReLU(inplace=True)
+            (2): Linear(in_features=5, out_features=20, bias=False)
+          )
+          (sigmoid): Sigmoid()
+        )
+        (fc1): Conv2d(35, 20, kernel_size=(1, 1), stride=(1, 1))
+        (fc2): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+  )
+  (trunk_conv): Conv2d(40, 40, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (upconv1): Conv2d(40, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (att1): EPA(
+    (convPath1): Conv2d(12, 12, kernel_size=(1, 1), stride=(1, 1))
+    (convPath2): Conv2d(12, 12, kernel_size=(1, 1), stride=(1, 1))
+    (sigmoid): Sigmoid()
+    (depthwise_conv1): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv2): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv3): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv5): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=24)
+    )
+    (conv1x1): Conv2d(24, 24, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (HRconv1): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (upconv2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (att2): EPA(
+    (convPath1): Conv2d(12, 12, kernel_size=(1, 1), stride=(1, 1))
+    (convPath2): Conv2d(12, 12, kernel_size=(1, 1), stride=(1, 1))
+    (sigmoid): Sigmoid()
+    (depthwise_conv1): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv2): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv3): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(12, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=12)
+    )
+    (depthwise_conv5): DepthwiseConv2d(
+      (depthwise_conv): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=24)
+    )
+    (conv1x1): Conv2d(24, 24, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (HRconv2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (conv_last): Conv2d(24, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+)
+24-03-04 17:54:09.254 - INFO: Loading model for G [/home/xxl/PAN/experiments/EPANx4_DIV2K/models/latest_G.pth] ...
+24-03-04 17:54:10.190 - INFO: Model [SRModel] is created.
+24-03-04 17:54:10.190 - INFO: 
+Testing [Set5]...
+24-03-04 17:54:15.011 - INFO: baby                 - PSNR: 32.186202 dB; SSIM: 0.867281; PSNR_Y: 33.694508 dB; SSIM_Y: 0.892303.
+24-03-04 17:54:15.310 - INFO: bird                 - PSNR: 32.564072 dB; SSIM: 0.923877; PSNR_Y: 34.802606 dB; SSIM_Y: 0.943462.
+24-03-04 17:54:15.610 - INFO: butterfly            - PSNR: 26.835341 dB; SSIM: 0.902581; PSNR_Y: 28.252674 dB; SSIM_Y: 0.922492.
+24-03-04 17:54:15.948 - INFO: head                 - PSNR: 29.891299 dB; SSIM: 0.718053; PSNR_Y: 32.923780 dB; SSIM_Y: 0.795593.
+24-03-04 17:54:16.216 - INFO: woman                - PSNR: 29.041532 dB; SSIM: 0.898675; PSNR_Y: 30.443712 dB; SSIM_Y: 0.910915.
+24-03-04 17:54:16.277 - INFO: ----Average PSNR/SSIM results for Set5----
+	PSNR: 30.103689 dB; SSIM: 0.862093
+
+24-03-04 17:54:16.277 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 32.023456 dB; SSIM_Y: 0.892953
+
+24-03-04 17:54:16.277 - INFO: 
+Testing [Set14]...
+24-03-04 17:54:16.934 - INFO: baboon               - PSNR: 20.944341 dB; SSIM: 0.464853; PSNR_Y: 22.965666 dB; SSIM_Y: 0.529520.
+24-03-04 17:54:17.940 - INFO: barbara              - PSNR: 24.481007 dB; SSIM: 0.714777; PSNR_Y: 26.006152 dB; SSIM_Y: 0.748862.
+24-03-04 17:54:18.675 - INFO: bridge               - PSNR: 24.080801 dB; SSIM: 0.618632; PSNR_Y: 25.404366 dB; SSIM_Y: 0.640446.
+24-03-04 17:54:18.992 - INFO: coastguard           - PSNR: 24.923968 dB; SSIM: 0.534618; PSNR_Y: 26.255477 dB; SSIM_Y: 0.573465.
+24-03-04 17:54:19.211 - INFO: comic                - PSNR: 21.868543 dB; SSIM: 0.703286; PSNR_Y: 23.376369 dB; SSIM_Y: 0.720821.
+24-03-04 17:54:19.520 - INFO: face                 - PSNR: 29.859596 dB; SSIM: 0.716688; PSNR_Y: 32.887111 dB; SSIM_Y: 0.793714.
+24-03-04 17:54:19.967 - INFO: flowers              - PSNR: 26.078083 dB; SSIM: 0.784351; PSNR_Y: 28.090132 dB; SSIM_Y: 0.812343.
+24-03-04 17:54:20.280 - INFO: foreman              - PSNR: 31.929880 dB; SSIM: 0.913049; PSNR_Y: 33.563388 dB; SSIM_Y: 0.929209.
+24-03-04 17:54:21.050 - INFO: lenna                - PSNR: 30.378539 dB; SSIM: 0.788250; PSNR_Y: 32.448124 dB; SSIM_Y: 0.862678.
+24-03-04 17:54:21.871 - INFO: man                  - PSNR: 26.039816 dB; SSIM: 0.726809; PSNR_Y: 27.364556 dB; SSIM_Y: 0.750960.
+24-03-04 17:54:22.890 - INFO: monarch              - PSNR: 30.925064 dB; SSIM: 0.927651; PSNR_Y: 32.370923 dB; SSIM_Y: 0.941152.
+24-03-04 17:54:23.642 - INFO: pepper               - PSNR: 31.182004 dB; SSIM: 0.792459; PSNR_Y: 34.219077 dB; SSIM_Y: 0.880512.
+24-03-04 17:54:24.486 - INFO: ppt3                 - PSNR: 24.796485 dB; SSIM: 0.927881; PSNR_Y: 26.452328 dB; SSIM_Y: 0.945807.
+24-03-04 17:54:25.034 - INFO: zebra                - PSNR: 25.794195 dB; SSIM: 0.761324; PSNR_Y: 27.170864 dB; SSIM_Y: 0.778479.
+24-03-04 17:54:25.194 - INFO: ----Average PSNR/SSIM results for Set14----
+	PSNR: 26.663023 dB; SSIM: 0.741045
+
+24-03-04 17:54:25.194 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 28.470610 dB; SSIM_Y: 0.779141
+
+24-03-04 17:54:25.194 - INFO: 
+Testing [B100]...
+24-03-04 17:54:25.784 - INFO: 101085               - PSNR: 22.681073 dB; SSIM: 0.543503; PSNR_Y: 24.004102 dB; SSIM_Y: 0.576624.
+24-03-04 17:54:26.218 - INFO: 101087               - PSNR: 27.370249 dB; SSIM: 0.793878; PSNR_Y: 28.690535 dB; SSIM_Y: 0.808980.
+24-03-04 17:54:26.654 - INFO: 102061               - PSNR: 25.130061 dB; SSIM: 0.789757; PSNR_Y: 26.486601 dB; SSIM_Y: 0.808961.
+24-03-04 17:54:27.088 - INFO: 103070               - PSNR: 29.226495 dB; SSIM: 0.827891; PSNR_Y: 30.590386 dB; SSIM_Y: 0.843808.
+24-03-04 17:54:27.603 - INFO: 105025               - PSNR: 24.847788 dB; SSIM: 0.684079; PSNR_Y: 26.183907 dB; SSIM_Y: 0.705140.
+24-03-04 17:54:28.040 - INFO: 106024               - PSNR: 32.518099 dB; SSIM: 0.882512; PSNR_Y: 33.948791 dB; SSIM_Y: 0.896062.
+24-03-04 17:54:28.460 - INFO: 108005               - PSNR: 24.882857 dB; SSIM: 0.711676; PSNR_Y: 26.172474 dB; SSIM_Y: 0.741850.
+24-03-04 17:54:28.881 - INFO: 108070               - PSNR: 21.768077 dB; SSIM: 0.550282; PSNR_Y: 23.057643 dB; SSIM_Y: 0.585965.
+24-03-04 17:54:29.297 - INFO: 108082               - PSNR: 26.063371 dB; SSIM: 0.763409; PSNR_Y: 27.407261 dB; SSIM_Y: 0.785365.
+24-03-04 17:54:29.722 - INFO: 109053               - PSNR: 27.916382 dB; SSIM: 0.781571; PSNR_Y: 29.269591 dB; SSIM_Y: 0.801700.
+24-03-04 17:54:30.142 - INFO: 119082               - PSNR: 23.335778 dB; SSIM: 0.708252; PSNR_Y: 24.637046 dB; SSIM_Y: 0.730188.
+24-03-04 17:54:30.559 - INFO: 12084                - PSNR: 26.250239 dB; SSIM: 0.719933; PSNR_Y: 27.751164 dB; SSIM_Y: 0.739510.
+24-03-04 17:54:30.981 - INFO: 123074               - PSNR: 28.652556 dB; SSIM: 0.792920; PSNR_Y: 30.009212 dB; SSIM_Y: 0.810028.
+24-03-04 17:54:31.409 - INFO: 126007               - PSNR: 27.935157 dB; SSIM: 0.805604; PSNR_Y: 29.391685 dB; SSIM_Y: 0.830512.
+24-03-04 17:54:31.832 - INFO: 130026               - PSNR: 23.669560 dB; SSIM: 0.639243; PSNR_Y: 24.964079 dB; SSIM_Y: 0.669211.
+24-03-04 17:54:32.266 - INFO: 134035               - PSNR: 23.082691 dB; SSIM: 0.735839; PSNR_Y: 24.500571 dB; SSIM_Y: 0.752488.
+24-03-04 17:54:32.685 - INFO: 14037                - PSNR: 33.312186 dB; SSIM: 0.873493; PSNR_Y: 34.717880 dB; SSIM_Y: 0.894406.
+24-03-04 17:54:33.107 - INFO: 143090               - PSNR: 31.295694 dB; SSIM: 0.873658; PSNR_Y: 32.869015 dB; SSIM_Y: 0.888872.
+24-03-04 17:54:33.527 - INFO: 145086               - PSNR: 24.881395 dB; SSIM: 0.709602; PSNR_Y: 26.219247 dB; SSIM_Y: 0.737913.
+24-03-04 17:54:33.955 - INFO: 147091               - PSNR: 24.581929 dB; SSIM: 0.774285; PSNR_Y: 25.941504 dB; SSIM_Y: 0.797903.
+24-03-04 17:54:34.393 - INFO: 148026               - PSNR: 20.818219 dB; SSIM: 0.664748; PSNR_Y: 22.107643 dB; SSIM_Y: 0.690555.
+24-03-04 17:54:34.812 - INFO: 148089               - PSNR: 22.519451 dB; SSIM: 0.595161; PSNR_Y: 23.804112 dB; SSIM_Y: 0.623697.
+24-03-04 17:54:35.230 - INFO: 156065               - PSNR: 23.505068 dB; SSIM: 0.530421; PSNR_Y: 24.807172 dB; SSIM_Y: 0.565413.
+24-03-04 17:54:35.650 - INFO: 157055               - PSNR: 25.084165 dB; SSIM: 0.766619; PSNR_Y: 26.487080 dB; SSIM_Y: 0.786156.
+24-03-04 17:54:36.069 - INFO: 159008               - PSNR: 26.220303 dB; SSIM: 0.798078; PSNR_Y: 27.499003 dB; SSIM_Y: 0.821981.
+24-03-04 17:54:36.488 - INFO: 160068               - PSNR: 25.614142 dB; SSIM: 0.815468; PSNR_Y: 26.884608 dB; SSIM_Y: 0.830712.
+24-03-04 17:54:36.909 - INFO: 16077                - PSNR: 26.248344 dB; SSIM: 0.701545; PSNR_Y: 27.602590 dB; SSIM_Y: 0.730540.
+24-03-04 17:54:37.328 - INFO: 163085               - PSNR: 28.209913 dB; SSIM: 0.781300; PSNR_Y: 29.587312 dB; SSIM_Y: 0.798505.
+24-03-04 17:54:37.763 - INFO: 167062               - PSNR: 31.144156 dB; SSIM: 0.880532; PSNR_Y: 32.481530 dB; SSIM_Y: 0.898211.
+24-03-04 17:54:38.217 - INFO: 167083               - PSNR: 18.558711 dB; SSIM: 0.484422; PSNR_Y: 19.868075 dB; SSIM_Y: 0.500094.
+24-03-04 17:54:38.637 - INFO: 170057               - PSNR: 28.472793 dB; SSIM: 0.791413; PSNR_Y: 29.769534 dB; SSIM_Y: 0.817613.
+24-03-04 17:54:39.076 - INFO: 175032               - PSNR: 19.602094 dB; SSIM: 0.405822; PSNR_Y: 20.888995 dB; SSIM_Y: 0.429452.
+24-03-04 17:54:39.496 - INFO: 175043               - PSNR: 23.799374 dB; SSIM: 0.641941; PSNR_Y: 25.124802 dB; SSIM_Y: 0.665648.
+24-03-04 17:54:39.916 - INFO: 182053               - PSNR: 23.023041 dB; SSIM: 0.741011; PSNR_Y: 24.331244 dB; SSIM_Y: 0.758430.
+24-03-04 17:54:40.346 - INFO: 189080               - PSNR: 33.673607 dB; SSIM: 0.865855; PSNR_Y: 35.044458 dB; SSIM_Y: 0.891311.
+24-03-04 17:54:40.766 - INFO: 19021                - PSNR: 25.540458 dB; SSIM: 0.715522; PSNR_Y: 26.913964 dB; SSIM_Y: 0.742174.
+24-03-04 17:54:41.187 - INFO: 196073               - PSNR: 26.570006 dB; SSIM: 0.456634; PSNR_Y: 27.899828 dB; SSIM_Y: 0.510008.
+24-03-04 17:54:41.604 - INFO: 197017               - PSNR: 26.867201 dB; SSIM: 0.690163; PSNR_Y: 28.201521 dB; SSIM_Y: 0.717886.
+24-03-04 17:54:42.037 - INFO: 208001               - PSNR: 27.163155 dB; SSIM: 0.707358; PSNR_Y: 28.412752 dB; SSIM_Y: 0.744718.
+24-03-04 17:54:42.468 - INFO: 210088               - PSNR: 33.967894 dB; SSIM: 0.941398; PSNR_Y: 35.700420 dB; SSIM_Y: 0.955286.
+24-03-04 17:54:42.886 - INFO: 21077                - PSNR: 25.567194 dB; SSIM: 0.714705; PSNR_Y: 26.924571 dB; SSIM_Y: 0.747604.
+24-03-04 17:54:43.308 - INFO: 216081               - PSNR: 24.599830 dB; SSIM: 0.690901; PSNR_Y: 25.842059 dB; SSIM_Y: 0.721728.
+24-03-04 17:54:43.735 - INFO: 219090               - PSNR: 25.352107 dB; SSIM: 0.724759; PSNR_Y: 26.668790 dB; SSIM_Y: 0.754847.
+24-03-04 17:54:44.167 - INFO: 220075               - PSNR: 26.456317 dB; SSIM: 0.852223; PSNR_Y: 27.812593 dB; SSIM_Y: 0.871316.
+24-03-04 17:54:44.586 - INFO: 223061               - PSNR: 23.381965 dB; SSIM: 0.654095; PSNR_Y: 24.714943 dB; SSIM_Y: 0.673306.
+24-03-04 17:54:45.016 - INFO: 227092               - PSNR: 33.261086 dB; SSIM: 0.845906; PSNR_Y: 34.676910 dB; SSIM_Y: 0.866298.
+24-03-04 17:54:45.442 - INFO: 229036               - PSNR: 21.387877 dB; SSIM: 0.594194; PSNR_Y: 22.714565 dB; SSIM_Y: 0.619980.
+24-03-04 17:54:45.862 - INFO: 236037               - PSNR: 23.551679 dB; SSIM: 0.607820; PSNR_Y: 24.908639 dB; SSIM_Y: 0.628238.
+24-03-04 17:54:46.282 - INFO: 24077                - PSNR: 25.665479 dB; SSIM: 0.859382; PSNR_Y: 27.180719 dB; SSIM_Y: 0.873255.
+24-03-04 17:54:46.704 - INFO: 241004               - PSNR: 30.815109 dB; SSIM: 0.813326; PSNR_Y: 32.185301 dB; SSIM_Y: 0.840827.
+24-03-04 17:54:47.123 - INFO: 241048               - PSNR: 23.468435 dB; SSIM: 0.586623; PSNR_Y: 24.790351 dB; SSIM_Y: 0.612934.
+24-03-04 17:54:47.545 - INFO: 253027               - PSNR: 21.159704 dB; SSIM: 0.675994; PSNR_Y: 22.495989 dB; SSIM_Y: 0.699863.
+24-03-04 17:54:47.968 - INFO: 253055               - PSNR: 31.182766 dB; SSIM: 0.818736; PSNR_Y: 32.520174 dB; SSIM_Y: 0.846366.
+24-03-04 17:54:48.388 - INFO: 260058               - PSNR: 31.197235 dB; SSIM: 0.762822; PSNR_Y: 32.539225 dB; SSIM_Y: 0.797347.
+24-03-04 17:54:48.821 - INFO: 271035               - PSNR: 26.358675 dB; SSIM: 0.748262; PSNR_Y: 27.700994 dB; SSIM_Y: 0.775268.
+24-03-04 17:54:49.263 - INFO: 285079               - PSNR: 24.204871 dB; SSIM: 0.663018; PSNR_Y: 25.571124 dB; SSIM_Y: 0.692324.
+24-03-04 17:54:49.684 - INFO: 291000               - PSNR: 20.047194 dB; SSIM: 0.404431; PSNR_Y: 21.426808 dB; SSIM_Y: 0.427452.
+24-03-04 17:54:50.100 - INFO: 295087               - PSNR: 26.146723 dB; SSIM: 0.698370; PSNR_Y: 27.480829 dB; SSIM_Y: 0.722463.
+24-03-04 17:54:50.517 - INFO: 296007               - PSNR: 30.673436 dB; SSIM: 0.759769; PSNR_Y: 32.009093 dB; SSIM_Y: 0.791989.
+24-03-04 17:54:50.938 - INFO: 296059               - PSNR: 29.899714 dB; SSIM: 0.757514; PSNR_Y: 31.274099 dB; SSIM_Y: 0.788357.
+24-03-04 17:54:51.353 - INFO: 299086               - PSNR: 30.317251 dB; SSIM: 0.779878; PSNR_Y: 31.701813 dB; SSIM_Y: 0.811028.
+24-03-04 17:54:51.771 - INFO: 300091               - PSNR: 27.665871 dB; SSIM: 0.762954; PSNR_Y: 29.028896 dB; SSIM_Y: 0.790523.
+24-03-04 17:54:52.200 - INFO: 302008               - PSNR: 32.272677 dB; SSIM: 0.940807; PSNR_Y: 33.736946 dB; SSIM_Y: 0.950336.
+24-03-04 17:54:52.617 - INFO: 304034               - PSNR: 22.947074 dB; SSIM: 0.639428; PSNR_Y: 24.239173 dB; SSIM_Y: 0.665764.
+24-03-04 17:54:53.048 - INFO: 304074               - PSNR: 24.624951 dB; SSIM: 0.585808; PSNR_Y: 25.962158 dB; SSIM_Y: 0.619363.
+24-03-04 17:54:53.465 - INFO: 306005               - PSNR: 26.797275 dB; SSIM: 0.765226; PSNR_Y: 28.192866 dB; SSIM_Y: 0.786657.
+24-03-04 17:54:53.880 - INFO: 3096                 - PSNR: 38.447237 dB; SSIM: 0.973371; PSNR_Y: 39.900173 dB; SSIM_Y: 0.980620.
+24-03-04 17:54:54.311 - INFO: 33039                - PSNR: 19.549923 dB; SSIM: 0.556128; PSNR_Y: 20.857897 dB; SSIM_Y: 0.572619.
+24-03-04 17:54:54.727 - INFO: 351093               - PSNR: 21.433965 dB; SSIM: 0.625372; PSNR_Y: 22.743407 dB; SSIM_Y: 0.646421.
+24-03-04 17:54:55.144 - INFO: 361010               - PSNR: 27.517706 dB; SSIM: 0.777797; PSNR_Y: 28.845929 dB; SSIM_Y: 0.811929.
+24-03-04 17:54:55.560 - INFO: 37073                - PSNR: 29.108406 dB; SSIM: 0.785060; PSNR_Y: 30.458763 dB; SSIM_Y: 0.819866.
+24-03-04 17:54:55.994 - INFO: 376043               - PSNR: 24.086131 dB; SSIM: 0.573332; PSNR_Y: 25.465086 dB; SSIM_Y: 0.594696.
+24-03-04 17:54:56.410 - INFO: 38082                - PSNR: 25.871781 dB; SSIM: 0.570360; PSNR_Y: 27.198360 dB; SSIM_Y: 0.602737.
+24-03-04 17:54:56.826 - INFO: 38092                - PSNR: 24.987169 dB; SSIM: 0.670287; PSNR_Y: 26.285645 dB; SSIM_Y: 0.696276.
+24-03-04 17:54:57.244 - INFO: 385039               - PSNR: 22.675382 dB; SSIM: 0.669767; PSNR_Y: 24.014692 dB; SSIM_Y: 0.695754.
+24-03-04 17:54:57.663 - INFO: 41033                - PSNR: 29.314088 dB; SSIM: 0.757055; PSNR_Y: 30.659577 dB; SSIM_Y: 0.788568.
+24-03-04 17:54:58.081 - INFO: 41069                - PSNR: 22.328063 dB; SSIM: 0.449660; PSNR_Y: 23.640850 dB; SSIM_Y: 0.479566.
+24-03-04 17:54:58.519 - INFO: 42012                - PSNR: 28.532258 dB; SSIM: 0.795195; PSNR_Y: 29.869115 dB; SSIM_Y: 0.814917.
+24-03-04 17:54:58.932 - INFO: 42049                - PSNR: 31.272366 dB; SSIM: 0.941891; PSNR_Y: 32.650453 dB; SSIM_Y: 0.951296.
+24-03-04 17:54:59.349 - INFO: 43074                - PSNR: 28.504478 dB; SSIM: 0.798304; PSNR_Y: 29.760676 dB; SSIM_Y: 0.818976.
+24-03-04 17:54:59.763 - INFO: 45096                - PSNR: 34.355956 dB; SSIM: 0.921532; PSNR_Y: 35.818528 dB; SSIM_Y: 0.938970.
+24-03-04 17:55:00.196 - INFO: 54082                - PSNR: 27.141645 dB; SSIM: 0.682970; PSNR_Y: 28.476764 dB; SSIM_Y: 0.711601.
+24-03-04 17:55:00.639 - INFO: 55073                - PSNR: 20.935840 dB; SSIM: 0.491861; PSNR_Y: 22.175656 dB; SSIM_Y: 0.526351.
+24-03-04 17:55:01.058 - INFO: 58060                - PSNR: 19.777578 dB; SSIM: 0.578453; PSNR_Y: 21.018184 dB; SSIM_Y: 0.601314.
+24-03-04 17:55:01.481 - INFO: 62096                - PSNR: 24.125179 dB; SSIM: 0.765308; PSNR_Y: 25.526998 dB; SSIM_Y: 0.787258.
+24-03-04 17:55:01.898 - INFO: 65033                - PSNR: 23.736107 dB; SSIM: 0.550202; PSNR_Y: 24.978580 dB; SSIM_Y: 0.594268.
+24-03-04 17:55:02.315 - INFO: 66053                - PSNR: 26.082712 dB; SSIM: 0.665734; PSNR_Y: 27.348579 dB; SSIM_Y: 0.695729.
+24-03-04 17:55:02.756 - INFO: 69015                - PSNR: 29.287617 dB; SSIM: 0.786415; PSNR_Y: 30.644958 dB; SSIM_Y: 0.808158.
+24-03-04 17:55:03.176 - INFO: 69020                - PSNR: 25.868739 dB; SSIM: 0.535248; PSNR_Y: 27.234565 dB; SSIM_Y: 0.562522.
+24-03-04 17:55:03.595 - INFO: 69040                - PSNR: 23.678919 dB; SSIM: 0.619333; PSNR_Y: 25.025987 dB; SSIM_Y: 0.641184.
+24-03-04 17:55:04.016 - INFO: 76053                - PSNR: 27.771096 dB; SSIM: 0.660947; PSNR_Y: 29.046895 dB; SSIM_Y: 0.707478.
+24-03-04 17:55:04.448 - INFO: 78004                - PSNR: 25.014616 dB; SSIM: 0.720538; PSNR_Y: 26.330093 dB; SSIM_Y: 0.745869.
+24-03-04 17:55:04.867 - INFO: 8023                 - PSNR: 29.006513 dB; SSIM: 0.857847; PSNR_Y: 30.415533 dB; SSIM_Y: 0.872269.
+24-03-04 17:55:05.283 - INFO: 85048                - PSNR: 24.456755 dB; SSIM: 0.687981; PSNR_Y: 25.816884 dB; SSIM_Y: 0.710642.
+24-03-04 17:55:05.714 - INFO: 86000                - PSNR: 24.655932 dB; SSIM: 0.774038; PSNR_Y: 26.001762 dB; SSIM_Y: 0.794595.
+24-03-04 17:55:06.133 - INFO: 86016                - PSNR: 20.588521 dB; SSIM: 0.289962; PSNR_Y: 21.913900 dB; SSIM_Y: 0.316328.
+24-03-04 17:55:06.553 - INFO: 86068                - PSNR: 25.682617 dB; SSIM: 0.516772; PSNR_Y: 27.002590 dB; SSIM_Y: 0.558414.
+24-03-04 17:55:06.971 - INFO: 87046                - PSNR: 24.839719 dB; SSIM: 0.755714; PSNR_Y: 26.167571 dB; SSIM_Y: 0.772838.
+24-03-04 17:55:07.402 - INFO: 89072                - PSNR: 25.469432 dB; SSIM: 0.703780; PSNR_Y: 26.799725 dB; SSIM_Y: 0.731457.
+24-03-04 17:55:07.821 - INFO: 97033                - PSNR: 23.729200 dB; SSIM: 0.701049; PSNR_Y: 25.036934 dB; SSIM_Y: 0.724203.
+24-03-04 17:55:07.930 - INFO: ----Average PSNR/SSIM results for B100----
+	PSNR: 26.148399 dB; SSIM: 0.708530
+
+24-03-04 17:55:07.931 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 27.496603 dB; SSIM_Y: 0.733350
+
+24-03-04 17:55:07.931 - INFO: 
+Testing [Urban100]...
+24-03-04 17:55:09.696 - INFO: img001               - PSNR: 26.200448 dB; SSIM: 0.741522; PSNR_Y: 27.614483 dB; SSIM_Y: 0.768536.
+24-03-04 17:55:11.691 - INFO: img002               - PSNR: 25.185865 dB; SSIM: 0.791928; PSNR_Y: 26.574900 dB; SSIM_Y: 0.813151.
+24-03-04 17:55:13.253 - INFO: img003               - PSNR: 22.139876 dB; SSIM: 0.644846; PSNR_Y: 23.739937 dB; SSIM_Y: 0.680868.
+24-03-04 17:55:14.769 - INFO: img004               - PSNR: 21.673614 dB; SSIM: 0.807077; PSNR_Y: 22.975075 dB; SSIM_Y: 0.823257.
+24-03-04 17:55:16.619 - INFO: img005               - PSNR: 26.020482 dB; SSIM: 0.933434; PSNR_Y: 27.347198 dB; SSIM_Y: 0.946204.
+24-03-04 17:55:19.137 - INFO: img006               - PSNR: 21.093308 dB; SSIM: 0.599991; PSNR_Y: 22.436109 dB; SSIM_Y: 0.624906.
+24-03-04 17:55:20.664 - INFO: img007               - PSNR: 27.886457 dB; SSIM: 0.841290; PSNR_Y: 29.444546 dB; SSIM_Y: 0.861706.
+24-03-04 17:55:22.053 - INFO: img008               - PSNR: 20.029242 dB; SSIM: 0.633044; PSNR_Y: 21.256198 dB; SSIM_Y: 0.642781.
+24-03-04 17:55:23.928 - INFO: img009               - PSNR: 32.000771 dB; SSIM: 0.902544; PSNR_Y: 33.719001 dB; SSIM_Y: 0.920994.
+24-03-04 17:55:25.908 - INFO: img010               - PSNR: 25.875272 dB; SSIM: 0.866779; PSNR_Y: 27.285012 dB; SSIM_Y: 0.887551.
+24-03-04 17:55:27.320 - INFO: img011               - PSNR: 16.413529 dB; SSIM: 0.776732; PSNR_Y: 17.735934 dB; SSIM_Y: 0.795706.
+24-03-04 17:55:29.318 - INFO: img012               - PSNR: 21.865281 dB; SSIM: 0.700166; PSNR_Y: 23.727707 dB; SSIM_Y: 0.725024.
+24-03-04 17:55:31.193 - INFO: img013               - PSNR: 28.155952 dB; SSIM: 0.792363; PSNR_Y: 29.506799 dB; SSIM_Y: 0.836591.
+24-03-04 17:55:33.658 - INFO: img014               - PSNR: 21.062498 dB; SSIM: 0.668420; PSNR_Y: 22.354174 dB; SSIM_Y: 0.686397.
+24-03-04 17:55:35.484 - INFO: img015               - PSNR: 24.673506 dB; SSIM: 0.690718; PSNR_Y: 26.105408 dB; SSIM_Y: 0.734795.
+24-03-04 17:55:37.978 - INFO: img016               - PSNR: 28.540408 dB; SSIM: 0.896595; PSNR_Y: 29.942861 dB; SSIM_Y: 0.910971.
+24-03-04 17:55:39.487 - INFO: img017               - PSNR: 24.133952 dB; SSIM: 0.808102; PSNR_Y: 25.613481 dB; SSIM_Y: 0.823463.
+24-03-04 17:55:41.324 - INFO: img018               - PSNR: 24.535850 dB; SSIM: 0.670277; PSNR_Y: 26.317509 dB; SSIM_Y: 0.708191.
+24-03-04 17:55:42.860 - INFO: img019               - PSNR: 20.026123 dB; SSIM: 0.751284; PSNR_Y: 21.470651 dB; SSIM_Y: 0.800129.
+24-03-04 17:55:45.568 - INFO: img020               - PSNR: 20.562766 dB; SSIM: 0.695446; PSNR_Y: 21.933474 dB; SSIM_Y: 0.711444.
+24-03-04 17:55:47.608 - INFO: img021               - PSNR: 28.105898 dB; SSIM: 0.756077; PSNR_Y: 29.491530 dB; SSIM_Y: 0.783021.
+24-03-04 17:55:49.105 - INFO: img022               - PSNR: 24.662057 dB; SSIM: 0.732237; PSNR_Y: 25.996265 dB; SSIM_Y: 0.753193.
+24-03-04 17:55:51.443 - INFO: img023               - PSNR: 28.269684 dB; SSIM: 0.894151; PSNR_Y: 30.063340 dB; SSIM_Y: 0.911038.
+24-03-04 17:55:52.909 - INFO: img024               - PSNR: 18.533531 dB; SSIM: 0.616437; PSNR_Y: 19.896085 dB; SSIM_Y: 0.631859.
+24-03-04 17:55:54.515 - INFO: img025               - PSNR: 30.775618 dB; SSIM: 0.879293; PSNR_Y: 32.294982 dB; SSIM_Y: 0.903719.
+24-03-04 17:55:56.335 - INFO: img026               - PSNR: 26.732576 dB; SSIM: 0.655727; PSNR_Y: 28.210930 dB; SSIM_Y: 0.708540.
+24-03-04 17:55:58.274 - INFO: img027               - PSNR: 27.052231 dB; SSIM: 0.774769; PSNR_Y: 28.276092 dB; SSIM_Y: 0.795810.
+24-03-04 17:55:59.767 - INFO: img028               - PSNR: 29.913441 dB; SSIM: 0.856033; PSNR_Y: 31.239099 dB; SSIM_Y: 0.873054.
+24-03-04 17:56:01.253 - INFO: img029               - PSNR: 25.676450 dB; SSIM: 0.847552; PSNR_Y: 27.064057 dB; SSIM_Y: 0.868415.
+24-03-04 17:56:02.767 - INFO: img030               - PSNR: 22.540310 dB; SSIM: 0.773216; PSNR_Y: 24.338515 dB; SSIM_Y: 0.798973.
+24-03-04 17:56:04.272 - INFO: img031               - PSNR: 22.580394 dB; SSIM: 0.766473; PSNR_Y: 24.019940 dB; SSIM_Y: 0.783827.
+24-03-04 17:56:05.797 - INFO: img032               - PSNR: 27.274118 dB; SSIM: 0.826562; PSNR_Y: 28.806231 dB; SSIM_Y: 0.846085.
+24-03-04 17:56:07.298 - INFO: img033               - PSNR: 25.423575 dB; SSIM: 0.771074; PSNR_Y: 27.191724 dB; SSIM_Y: 0.798579.
+24-03-04 17:56:08.774 - INFO: img034               - PSNR: 21.098724 dB; SSIM: 0.573871; PSNR_Y: 23.010536 dB; SSIM_Y: 0.582782.
+24-03-04 17:56:10.309 - INFO: img035               - PSNR: 27.522674 dB; SSIM: 0.851067; PSNR_Y: 28.947542 dB; SSIM_Y: 0.872008.
+24-03-04 17:56:11.808 - INFO: img036               - PSNR: 27.489219 dB; SSIM: 0.872859; PSNR_Y: 28.810665 dB; SSIM_Y: 0.885382.
+24-03-04 17:56:13.363 - INFO: img037               - PSNR: 24.882608 dB; SSIM: 0.771672; PSNR_Y: 26.266484 dB; SSIM_Y: 0.795830.
+24-03-04 17:56:15.200 - INFO: img038               - PSNR: 25.510616 dB; SSIM: 0.627411; PSNR_Y: 26.950817 dB; SSIM_Y: 0.675877.
+24-03-04 17:56:17.020 - INFO: img039               - PSNR: 21.619434 dB; SSIM: 0.721820; PSNR_Y: 23.000476 dB; SSIM_Y: 0.740607.
+24-03-04 17:56:18.379 - INFO: img040               - PSNR: 26.342664 dB; SSIM: 0.940188; PSNR_Y: 27.732644 dB; SSIM_Y: 0.947664.
+24-03-04 17:56:19.888 - INFO: img041               - PSNR: 24.250472 dB; SSIM: 0.863199; PSNR_Y: 25.729602 dB; SSIM_Y: 0.875642.
+24-03-04 17:56:21.402 - INFO: img042               - PSNR: 27.459812 dB; SSIM: 0.877371; PSNR_Y: 28.791872 dB; SSIM_Y: 0.886748.
+24-03-04 17:56:22.891 - INFO: img043               - PSNR: 30.832929 dB; SSIM: 0.914303; PSNR_Y: 32.502058 dB; SSIM_Y: 0.936882.
+24-03-04 17:56:24.395 - INFO: img044               - PSNR: 29.757785 dB; SSIM: 0.834283; PSNR_Y: 31.683799 dB; SSIM_Y: 0.860602.
+24-03-04 17:56:26.218 - INFO: img045               - PSNR: 21.788817 dB; SSIM: 0.667530; PSNR_Y: 23.104353 dB; SSIM_Y: 0.680838.
+24-03-04 17:56:27.732 - INFO: img046               - PSNR: 22.039450 dB; SSIM: 0.741525; PSNR_Y: 23.471007 dB; SSIM_Y: 0.746550.
+24-03-04 17:56:29.147 - INFO: img047               - PSNR: 20.229777 dB; SSIM: 0.746464; PSNR_Y: 21.713047 dB; SSIM_Y: 0.757519.
+24-03-04 17:56:30.652 - INFO: img048               - PSNR: 18.631285 dB; SSIM: 0.789333; PSNR_Y: 19.932253 dB; SSIM_Y: 0.799358.
+24-03-04 17:56:32.163 - INFO: img049               - PSNR: 21.791055 dB; SSIM: 0.725810; PSNR_Y: 23.323337 dB; SSIM_Y: 0.746339.
+24-03-04 17:56:33.649 - INFO: img050               - PSNR: 23.730614 dB; SSIM: 0.749229; PSNR_Y: 25.152960 dB; SSIM_Y: 0.765573.
+24-03-04 17:56:35.153 - INFO: img051               - PSNR: 25.739027 dB; SSIM: 0.822699; PSNR_Y: 27.248350 dB; SSIM_Y: 0.843905.
+24-03-04 17:56:36.651 - INFO: img052               - PSNR: 27.501069 dB; SSIM: 0.894041; PSNR_Y: 28.875613 dB; SSIM_Y: 0.907650.
+24-03-04 17:56:38.139 - INFO: img053               - PSNR: 20.916012 dB; SSIM: 0.706571; PSNR_Y: 22.253145 dB; SSIM_Y: 0.720463.
+24-03-04 17:56:39.650 - INFO: img054               - PSNR: 19.631070 dB; SSIM: 0.626715; PSNR_Y: 21.119724 dB; SSIM_Y: 0.646030.
+24-03-04 17:56:41.436 - INFO: img055               - PSNR: 30.707506 dB; SSIM: 0.911325; PSNR_Y: 32.614816 dB; SSIM_Y: 0.944272.
+24-03-04 17:56:43.240 - INFO: img056               - PSNR: 23.510304 dB; SSIM: 0.758733; PSNR_Y: 24.878237 dB; SSIM_Y: 0.776855.
+24-03-04 17:56:44.804 - INFO: img057               - PSNR: 29.227867 dB; SSIM: 0.872483; PSNR_Y: 30.668318 dB; SSIM_Y: 0.890550.
+24-03-04 17:56:46.326 - INFO: img058               - PSNR: 24.031828 dB; SSIM: 0.832799; PSNR_Y: 25.472774 dB; SSIM_Y: 0.846048.
+24-03-04 17:56:47.802 - INFO: img059               - PSNR: 20.429198 dB; SSIM: 0.734922; PSNR_Y: 21.816073 dB; SSIM_Y: 0.753068.
+24-03-04 17:56:49.283 - INFO: img060               - PSNR: 21.090696 dB; SSIM: 0.544780; PSNR_Y: 22.487991 dB; SSIM_Y: 0.562137.
+24-03-04 17:56:50.780 - INFO: img061               - PSNR: 22.890186 dB; SSIM: 0.726542; PSNR_Y: 24.478641 dB; SSIM_Y: 0.743037.
+24-03-04 17:56:52.272 - INFO: img062               - PSNR: 19.633513 dB; SSIM: 0.768862; PSNR_Y: 21.051639 dB; SSIM_Y: 0.784994.
+24-03-04 17:56:54.365 - INFO: img063               - PSNR: 21.061445 dB; SSIM: 0.583652; PSNR_Y: 22.350916 dB; SSIM_Y: 0.622914.
+24-03-04 17:56:55.878 - INFO: img064               - PSNR: 25.109475 dB; SSIM: 0.760313; PSNR_Y: 26.464078 dB; SSIM_Y: 0.777383.
+24-03-04 17:56:57.376 - INFO: img065               - PSNR: 23.750954 dB; SSIM: 0.697939; PSNR_Y: 25.426299 dB; SSIM_Y: 0.718521.
+24-03-04 17:56:59.319 - INFO: img066               - PSNR: 20.877750 dB; SSIM: 0.619186; PSNR_Y: 22.201795 dB; SSIM_Y: 0.642029.
+24-03-04 17:57:00.822 - INFO: img067               - PSNR: 17.633978 dB; SSIM: 0.839946; PSNR_Y: 19.078791 dB; SSIM_Y: 0.862885.
+24-03-04 17:57:03.173 - INFO: img068               - PSNR: 28.959192 dB; SSIM: 0.871411; PSNR_Y: 30.372085 dB; SSIM_Y: 0.886651.
+24-03-04 17:57:05.247 - INFO: img069               - PSNR: 23.385366 dB; SSIM: 0.731489; PSNR_Y: 24.706948 dB; SSIM_Y: 0.751950.
+24-03-04 17:57:07.020 - INFO: img070               - PSNR: 20.773284 dB; SSIM: 0.573871; PSNR_Y: 22.095022 dB; SSIM_Y: 0.593512.
+24-03-04 17:57:08.809 - INFO: img071               - PSNR: 26.490826 dB; SSIM: 0.622405; PSNR_Y: 27.848261 dB; SSIM_Y: 0.659558.
+24-03-04 17:57:10.307 - INFO: img072               - PSNR: 18.710613 dB; SSIM: 0.810202; PSNR_Y: 20.039722 dB; SSIM_Y: 0.816005.
+24-03-04 17:57:12.105 - INFO: img073               - PSNR: 18.447801 dB; SSIM: 0.522644; PSNR_Y: 19.744864 dB; SSIM_Y: 0.541742.
+24-03-04 17:57:13.566 - INFO: img074               - PSNR: 22.039177 dB; SSIM: 0.682491; PSNR_Y: 23.523246 dB; SSIM_Y: 0.694017.
+24-03-04 17:57:15.090 - INFO: img075               - PSNR: 30.088053 dB; SSIM: 0.867632; PSNR_Y: 31.935350 dB; SSIM_Y: 0.890641.
+24-03-04 17:57:16.568 - INFO: img076               - PSNR: 20.914992 dB; SSIM: 0.688285; PSNR_Y: 22.384373 dB; SSIM_Y: 0.706609.
+24-03-04 17:57:18.063 - INFO: img077               - PSNR: 21.259255 dB; SSIM: 0.654544; PSNR_Y: 22.658809 dB; SSIM_Y: 0.671544.
+24-03-04 17:57:19.658 - INFO: img078               - PSNR: 25.743949 dB; SSIM: 0.729713; PSNR_Y: 26.940156 dB; SSIM_Y: 0.764048.
+24-03-04 17:57:21.490 - INFO: img079               - PSNR: 23.811410 dB; SSIM: 0.664887; PSNR_Y: 25.248091 dB; SSIM_Y: 0.692473.
+24-03-04 17:57:23.315 - INFO: img080               - PSNR: 33.968770 dB; SSIM: 0.936587; PSNR_Y: 35.500238 dB; SSIM_Y: 0.950896.
+24-03-04 17:57:25.686 - INFO: img081               - PSNR: 34.502230 dB; SSIM: 0.943530; PSNR_Y: 37.372040 dB; SSIM_Y: 0.971561.
+24-03-04 17:57:28.030 - INFO: img082               - PSNR: 31.283323 dB; SSIM: 0.921613; PSNR_Y: 32.785890 dB; SSIM_Y: 0.941364.
+24-03-04 17:57:30.375 - INFO: img083               - PSNR: 20.905984 dB; SSIM: 0.677340; PSNR_Y: 22.173456 dB; SSIM_Y: 0.693954.
+24-03-04 17:57:32.712 - INFO: img084               - PSNR: 26.997235 dB; SSIM: 0.778370; PSNR_Y: 28.536627 dB; SSIM_Y: 0.805937.
+24-03-04 17:57:34.171 - INFO: img085               - PSNR: 26.242484 dB; SSIM: 0.881545; PSNR_Y: 27.802581 dB; SSIM_Y: 0.893241.
+24-03-04 17:57:35.946 - INFO: img086               - PSNR: 28.721846 dB; SSIM: 0.864108; PSNR_Y: 30.167350 dB; SSIM_Y: 0.881961.
+24-03-04 17:57:38.309 - INFO: img087               - PSNR: 26.175105 dB; SSIM: 0.859507; PSNR_Y: 27.608828 dB; SSIM_Y: 0.882376.
+24-03-04 17:57:39.801 - INFO: img088               - PSNR: 18.380527 dB; SSIM: 0.541925; PSNR_Y: 19.719092 dB; SSIM_Y: 0.561239.
+24-03-04 17:57:41.592 - INFO: img089               - PSNR: 25.351258 dB; SSIM: 0.693532; PSNR_Y: 26.693987 dB; SSIM_Y: 0.714540.
+24-03-04 17:57:43.089 - INFO: img090               - PSNR: 36.520901 dB; SSIM: 0.966291; PSNR_Y: 38.245350 dB; SSIM_Y: 0.976376.
+24-03-04 17:57:44.597 - INFO: img091               - PSNR: 21.744909 dB; SSIM: 0.618788; PSNR_Y: 23.548620 dB; SSIM_Y: 0.653197.
+24-03-04 17:57:46.100 - INFO: img092               - PSNR: 17.591274 dB; SSIM: 0.639147; PSNR_Y: 18.920287 dB; SSIM_Y: 0.658427.
+24-03-04 17:57:47.902 - INFO: img093               - PSNR: 27.100092 dB; SSIM: 0.910261; PSNR_Y: 28.501047 dB; SSIM_Y: 0.926228.
+24-03-04 17:57:49.710 - INFO: img094               - PSNR: 25.706488 dB; SSIM: 0.745320; PSNR_Y: 27.103446 dB; SSIM_Y: 0.783389.
+24-03-04 17:57:51.506 - INFO: img095               - PSNR: 18.585291 dB; SSIM: 0.408434; PSNR_Y: 19.908932 dB; SSIM_Y: 0.426587.
+24-03-04 17:57:53.321 - INFO: img096               - PSNR: 22.984277 dB; SSIM: 0.833677; PSNR_Y: 24.283361 dB; SSIM_Y: 0.847241.
+24-03-04 17:57:54.836 - INFO: img097               - PSNR: 23.291917 dB; SSIM: 0.736143; PSNR_Y: 24.712786 dB; SSIM_Y: 0.753815.
+24-03-04 17:57:56.344 - INFO: img098               - PSNR: 19.183348 dB; SSIM: 0.499514; PSNR_Y: 20.566108 dB; SSIM_Y: 0.520066.
+24-03-04 17:57:58.192 - INFO: img099               - PSNR: 23.046779 dB; SSIM: 0.717677; PSNR_Y: 25.419827 dB; SSIM_Y: 0.771020.
+24-03-04 17:58:00.549 - INFO: img100               - PSNR: 22.179811 dB; SSIM: 0.676739; PSNR_Y: 26.249591 dB; SSIM_Y: 0.748906.
+24-03-04 17:58:00.661 - INFO: ----Average PSNR/SSIM results for Urban100----
+	PSNR: 24.354227 dB; SSIM: 0.756012
+
+24-03-04 17:58:00.661 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 25.859163 dB; SSIM_Y: 0.777888
+
+24-03-04 17:58:00.661 - INFO: 
+Testing [Manga109]...
+24-03-04 17:58:02.984 - INFO: ARMS                 - PSNR: 26.278431 dB; SSIM: 0.772282; PSNR_Y: 28.163146 dB; SSIM_Y: 0.811814.
+24-03-04 17:58:05.030 - INFO: AisazuNihaIrarenai   - PSNR: 28.541951 dB; SSIM: 0.770386; PSNR_Y: 30.880182 dB; SSIM_Y: 0.811013.
+24-03-04 17:58:07.071 - INFO: AkkeraKanjinchou     - PSNR: 26.140148 dB; SSIM: 0.807913; PSNR_Y: 27.810052 dB; SSIM_Y: 0.837678.
+24-03-04 17:58:09.155 - INFO: Akuhamu              - PSNR: 33.879433 dB; SSIM: 0.923853; PSNR_Y: 35.773918 dB; SSIM_Y: 0.946862.
+24-03-04 17:58:11.200 - INFO: AosugiruHaru         - PSNR: 33.931982 dB; SSIM: 0.945161; PSNR_Y: 39.193456 dB; SSIM_Y: 0.977578.
+24-03-04 17:58:13.269 - INFO: AppareKappore        - PSNR: 27.817091 dB; SSIM: 0.877332; PSNR_Y: 29.755146 dB; SSIM_Y: 0.910676.
+24-03-04 17:58:15.351 - INFO: Arisa                - PSNR: 30.216028 dB; SSIM: 0.922834; PSNR_Y: 32.629624 dB; SSIM_Y: 0.953653.
+24-03-04 17:58:17.412 - INFO: BEMADER_P            - PSNR: 25.141303 dB; SSIM: 0.862527; PSNR_Y: 26.851468 dB; SSIM_Y: 0.889784.
+24-03-04 17:58:19.499 - INFO: BakuretsuKungFuGirl  - PSNR: 28.223735 dB; SSIM: 0.886276; PSNR_Y: 30.462828 dB; SSIM_Y: 0.923947.
+24-03-04 17:58:21.547 - INFO: Belmondo             - PSNR: 27.616002 dB; SSIM: 0.857533; PSNR_Y: 29.233261 dB; SSIM_Y: 0.892599.
+24-03-04 17:58:23.616 - INFO: BokuHaSitatakaKun    - PSNR: 26.993697 dB; SSIM: 0.918068; PSNR_Y: 28.801607 dB; SSIM_Y: 0.945094.
+24-03-04 17:58:25.683 - INFO: BurariTessenTorimonocho - PSNR: 26.041442 dB; SSIM: 0.831759; PSNR_Y: 27.852820 dB; SSIM_Y: 0.859600.
+24-03-04 17:58:27.728 - INFO: ByebyeC-BOY          - PSNR: 30.459753 dB; SSIM: 0.930980; PSNR_Y: 32.682878 dB; SSIM_Y: 0.959151.
+24-03-04 17:58:29.785 - INFO: Count3DeKimeteAgeru  - PSNR: 29.632443 dB; SSIM: 0.861903; PSNR_Y: 31.490994 dB; SSIM_Y: 0.901517.
+24-03-04 17:58:31.820 - INFO: DollGun              - PSNR: 26.579965 dB; SSIM: 0.884868; PSNR_Y: 28.290712 dB; SSIM_Y: 0.912410.
+24-03-04 17:58:33.886 - INFO: Donburakokko         - PSNR: 25.466448 dB; SSIM: 0.870890; PSNR_Y: 27.253982 dB; SSIM_Y: 0.900451.
+24-03-04 17:58:35.932 - INFO: DualJustice          - PSNR: 28.397532 dB; SSIM: 0.935632; PSNR_Y: 30.099312 dB; SSIM_Y: 0.949272.
+24-03-04 17:58:37.962 - INFO: EienNoWith           - PSNR: 32.306053 dB; SSIM: 0.965452; PSNR_Y: 33.913469 dB; SSIM_Y: 0.973999.
+24-03-04 17:58:40.018 - INFO: EvaLady              - PSNR: 29.241459 dB; SSIM: 0.874936; PSNR_Y: 30.661983 dB; SSIM_Y: 0.899177.
+24-03-04 17:58:42.029 - INFO: EverydayOsakanaChan  - PSNR: 30.505833 dB; SSIM: 0.962839; PSNR_Y: 32.091414 dB; SSIM_Y: 0.972586.
+24-03-04 17:58:44.074 - INFO: GOOD_KISS_Ver2       - PSNR: 29.280710 dB; SSIM: 0.894935; PSNR_Y: 31.145094 dB; SSIM_Y: 0.914136.
+24-03-04 17:58:46.127 - INFO: GakuenNoise          - PSNR: 28.925204 dB; SSIM: 0.883562; PSNR_Y: 31.211203 dB; SSIM_Y: 0.926768.
+24-03-04 17:58:48.187 - INFO: GarakutayaManta      - PSNR: 28.296801 dB; SSIM: 0.878731; PSNR_Y: 29.902773 dB; SSIM_Y: 0.910642.
+24-03-04 17:58:50.239 - INFO: GinNoChimera         - PSNR: 34.563270 dB; SSIM: 0.951923; PSNR_Y: 36.623513 dB; SSIM_Y: 0.970324.
+24-03-04 17:58:52.270 - INFO: Hamlet               - PSNR: 27.055991 dB; SSIM: 0.942620; PSNR_Y: 28.477874 dB; SSIM_Y: 0.952961.
+24-03-04 17:58:54.331 - INFO: HanzaiKousyouninMinegishiEitarou - PSNR: 29.044085 dB; SSIM: 0.913241; PSNR_Y: 30.749937 dB; SSIM_Y: 0.938486.
+24-03-04 17:58:56.373 - INFO: HaruichibanNoFukukoro - PSNR: 34.991805 dB; SSIM: 0.954066; PSNR_Y: 37.848868 dB; SSIM_Y: 0.977379.
+24-03-04 17:58:58.431 - INFO: HarukaRefrain        - PSNR: 29.767575 dB; SSIM: 0.905022; PSNR_Y: 31.440532 dB; SSIM_Y: 0.929344.
+24-03-04 17:59:00.483 - INFO: HealingPlanet        - PSNR: 30.899757 dB; SSIM: 0.932183; PSNR_Y: 32.623194 dB; SSIM_Y: 0.956118.
+24-03-04 17:59:02.529 - INFO: HeiseiJimen          - PSNR: 29.207293 dB; SSIM: 0.912756; PSNR_Y: 31.050740 dB; SSIM_Y: 0.938609.
+24-03-04 17:59:04.588 - INFO: HighschoolKimengumi_vol01 - PSNR: 24.583796 dB; SSIM: 0.903358; PSNR_Y: 26.275605 dB; SSIM_Y: 0.932864.
+24-03-04 17:59:06.636 - INFO: HighschoolKimengumi_vol20 - PSNR: 25.154204 dB; SSIM: 0.892918; PSNR_Y: 26.959351 dB; SSIM_Y: 0.921684.
+24-03-04 17:59:08.698 - INFO: HinagikuKenzan       - PSNR: 30.302663 dB; SSIM: 0.864249; PSNR_Y: 32.202854 dB; SSIM_Y: 0.889153.
+24-03-04 17:59:10.782 - INFO: HisokaReturns        - PSNR: 26.680712 dB; SSIM: 0.697312; PSNR_Y: 28.442153 dB; SSIM_Y: 0.742224.
+24-03-04 17:59:12.831 - INFO: JangiriPonpon        - PSNR: 24.823387 dB; SSIM: 0.832245; PSNR_Y: 26.171512 dB; SSIM_Y: 0.862118.
+24-03-04 17:59:14.888 - INFO: JijiBabaFight        - PSNR: 29.235399 dB; SSIM: 0.874073; PSNR_Y: 31.121380 dB; SSIM_Y: 0.906793.
+24-03-04 17:59:16.956 - INFO: Joouari              - PSNR: 25.645957 dB; SSIM: 0.824959; PSNR_Y: 27.392973 dB; SSIM_Y: 0.858700.
+24-03-04 17:59:19.026 - INFO: Jyovolley            - PSNR: 32.341873 dB; SSIM: 0.953680; PSNR_Y: 34.409982 dB; SSIM_Y: 0.968242.
+24-03-04 17:59:21.065 - INFO: KarappoHighschool    - PSNR: 32.324191 dB; SSIM: 0.938075; PSNR_Y: 34.461339 dB; SSIM_Y: 0.959662.
+24-03-04 17:59:23.087 - INFO: KimiHaBokuNoTaiyouDa - PSNR: 25.843604 dB; SSIM: 0.816602; PSNR_Y: 27.669028 dB; SSIM_Y: 0.891102.
+24-03-04 17:59:25.136 - INFO: KoukouNoHitotachi    - PSNR: 28.436235 dB; SSIM: 0.809373; PSNR_Y: 30.365709 dB; SSIM_Y: 0.854243.
+24-03-04 17:59:27.167 - INFO: KuroidoGanka         - PSNR: 30.555150 dB; SSIM: 0.881490; PSNR_Y: 32.432739 dB; SSIM_Y: 0.909418.
+24-03-04 17:59:29.218 - INFO: KyokugenCyclone      - PSNR: 19.089497 dB; SSIM: 0.696349; PSNR_Y: 20.608813 dB; SSIM_Y: 0.727487.
+24-03-04 17:59:31.233 - INFO: LancelotFullThrottle - PSNR: 32.768802 dB; SSIM: 0.956130; PSNR_Y: 34.660995 dB; SSIM_Y: 0.974643.
+24-03-04 17:59:33.237 - INFO: LoveHina_vol01       - PSNR: 23.489532 dB; SSIM: 0.904496; PSNR_Y: 24.815829 dB; SSIM_Y: 0.913911.
+24-03-04 17:59:35.285 - INFO: LoveHina_vol14       - PSNR: 25.654396 dB; SSIM: 0.868659; PSNR_Y: 27.211930 dB; SSIM_Y: 0.889267.
+24-03-04 17:59:37.311 - INFO: MAD_STONE            - PSNR: 31.706282 dB; SSIM: 0.918867; PSNR_Y: 34.274070 dB; SSIM_Y: 0.949747.
+24-03-04 17:59:39.327 - INFO: MadouTaiga           - PSNR: 25.029088 dB; SSIM: 0.811439; PSNR_Y: 26.799588 dB; SSIM_Y: 0.864846.
+24-03-04 17:59:41.375 - INFO: MagicStarGakuin      - PSNR: 26.604562 dB; SSIM: 0.878026; PSNR_Y: 28.357621 dB; SSIM_Y: 0.910095.
+24-03-04 17:59:43.436 - INFO: MagicianLoad         - PSNR: 25.009773 dB; SSIM: 0.716365; PSNR_Y: 26.494061 dB; SSIM_Y: 0.757992.
+24-03-04 17:59:45.481 - INFO: MariaSamaNihaNaisyo  - PSNR: 28.079070 dB; SSIM: 0.918554; PSNR_Y: 29.673975 dB; SSIM_Y: 0.942341.
+24-03-04 17:59:47.513 - INFO: MayaNoAkaiKutsu      - PSNR: 31.127948 dB; SSIM: 0.921988; PSNR_Y: 33.060200 dB; SSIM_Y: 0.942390.
+24-03-04 17:59:49.530 - INFO: MemorySeijin         - PSNR: 34.638855 dB; SSIM: 0.876020; PSNR_Y: 36.218639 dB; SSIM_Y: 0.902781.
+24-03-04 17:59:51.574 - INFO: MeteoSanStrikeDesu   - PSNR: 32.392743 dB; SSIM: 0.938949; PSNR_Y: 34.912194 dB; SSIM_Y: 0.959885.
+24-03-04 17:59:53.590 - INFO: MiraiSan             - PSNR: 21.129539 dB; SSIM: 0.664134; PSNR_Y: 22.410624 dB; SSIM_Y: 0.707801.
+24-03-04 17:59:55.573 - INFO: MisutenaideDaisy     - PSNR: 31.134690 dB; SSIM: 0.952690; PSNR_Y: 32.744060 dB; SSIM_Y: 0.963913.
+24-03-04 17:59:57.614 - INFO: MoeruOnisan_vol01    - PSNR: 28.802087 dB; SSIM: 0.908198; PSNR_Y: 30.630687 dB; SSIM_Y: 0.943233.
+24-03-04 17:59:59.646 - INFO: MoeruOnisan_vol19    - PSNR: 29.109389 dB; SSIM: 0.909402; PSNR_Y: 31.269208 dB; SSIM_Y: 0.938607.
+24-03-04 18:00:01.698 - INFO: MomoyamaHaikagura    - PSNR: 22.006442 dB; SSIM: 0.743625; PSNR_Y: 23.484170 dB; SSIM_Y: 0.754301.
+24-03-04 18:00:03.724 - INFO: MukoukizuNoChonbo    - PSNR: 31.090298 dB; SSIM: 0.953017; PSNR_Y: 32.805387 dB; SSIM_Y: 0.968078.
+24-03-04 18:00:05.742 - INFO: MutekiBoukenSyakuma  - PSNR: 29.496825 dB; SSIM: 0.910150; PSNR_Y: 31.505249 dB; SSIM_Y: 0.943047.
+24-03-04 18:00:07.765 - INFO: Nekodama             - PSNR: 28.524828 dB; SSIM: 0.920301; PSNR_Y: 30.240917 dB; SSIM_Y: 0.944915.
+24-03-04 18:00:09.812 - INFO: NichijouSoup         - PSNR: 32.486259 dB; SSIM: 0.946703; PSNR_Y: 34.589264 dB; SSIM_Y: 0.965812.
+24-03-04 18:00:11.857 - INFO: Ningyoushi           - PSNR: 31.880796 dB; SSIM: 0.902456; PSNR_Y: 33.693011 dB; SSIM_Y: 0.924393.
+24-03-04 18:00:13.874 - INFO: OL_Lunch             - PSNR: 23.139348 dB; SSIM: 0.902237; PSNR_Y: 24.822040 dB; SSIM_Y: 0.924546.
+24-03-04 18:00:15.916 - INFO: OhWareraRettouSeitokai - PSNR: 29.375531 dB; SSIM: 0.909780; PSNR_Y: 31.449390 dB; SSIM_Y: 0.936097.
+24-03-04 18:00:17.944 - INFO: PLANET7              - PSNR: 30.519571 dB; SSIM: 0.894034; PSNR_Y: 32.414778 dB; SSIM_Y: 0.927538.
+24-03-04 18:00:19.975 - INFO: ParaisoRoad          - PSNR: 28.958716 dB; SSIM: 0.905565; PSNR_Y: 31.113755 dB; SSIM_Y: 0.935835.
+24-03-04 18:00:22.013 - INFO: PikaruGenkiDesu      - PSNR: 26.314290 dB; SSIM: 0.893873; PSNR_Y: 27.923124 dB; SSIM_Y: 0.916083.
+24-03-04 18:00:24.067 - INFO: PlatinumJungle       - PSNR: 28.666362 dB; SSIM: 0.906772; PSNR_Y: 30.560100 dB; SSIM_Y: 0.933825.
+24-03-04 18:00:25.678 - INFO: PrayerHaNemurenai    - PSNR: 26.122157 dB; SSIM: 0.676462; PSNR_Y: 27.761976 dB; SSIM_Y: 0.708314.
+24-03-04 18:00:27.735 - INFO: PrismHeart           - PSNR: 32.693900 dB; SSIM: 0.935854; PSNR_Y: 34.438481 dB; SSIM_Y: 0.956686.
+24-03-04 18:00:29.813 - INFO: PsychoStaff          - PSNR: 31.576616 dB; SSIM: 0.928988; PSNR_Y: 33.351186 dB; SSIM_Y: 0.948026.
+24-03-04 18:00:31.866 - INFO: Raphael              - PSNR: 26.066490 dB; SSIM: 0.854601; PSNR_Y: 27.636778 dB; SSIM_Y: 0.883060.
+24-03-04 18:00:33.910 - INFO: ReveryEarth          - PSNR: 27.679916 dB; SSIM: 0.862305; PSNR_Y: 29.229701 dB; SSIM_Y: 0.894299.
+24-03-04 18:00:35.946 - INFO: RinToSiteSippuNoNaka - PSNR: 28.472242 dB; SSIM: 0.903892; PSNR_Y: 29.985729 dB; SSIM_Y: 0.929291.
+24-03-04 18:00:38.000 - INFO: RisingGirl           - PSNR: 27.164171 dB; SSIM: 0.841556; PSNR_Y: 29.757869 dB; SSIM_Y: 0.876281.
+24-03-04 18:00:40.031 - INFO: Saisoku              - PSNR: 25.622211 dB; SSIM: 0.754147; PSNR_Y: 27.930663 dB; SSIM_Y: 0.807533.
+24-03-04 18:00:42.037 - INFO: SaladDays_vol01      - PSNR: 28.905030 dB; SSIM: 0.910838; PSNR_Y: 30.582354 dB; SSIM_Y: 0.929948.
+24-03-04 18:00:44.069 - INFO: SaladDays_vol18      - PSNR: 28.986565 dB; SSIM: 0.920731; PSNR_Y: 30.645892 dB; SSIM_Y: 0.936289.
+24-03-04 18:00:46.115 - INFO: SamayoeruSyonenNiJunaiWo - PSNR: 27.890428 dB; SSIM: 0.842375; PSNR_Y: 29.615512 dB; SSIM_Y: 0.870469.
+24-03-04 18:00:48.166 - INFO: SeisinkiVulnus       - PSNR: 29.831725 dB; SSIM: 0.869276; PSNR_Y: 31.491550 dB; SSIM_Y: 0.900015.
+24-03-04 18:00:50.206 - INFO: ShimatteIkouze_vol01 - PSNR: 28.789242 dB; SSIM: 0.928046; PSNR_Y: 30.804736 dB; SSIM_Y: 0.955663.
+24-03-04 18:00:52.215 - INFO: ShimatteIkouze_vol26 - PSNR: 25.310841 dB; SSIM: 0.912888; PSNR_Y: 26.909508 dB; SSIM_Y: 0.938570.
+24-03-04 18:00:54.259 - INFO: SonokiDeABC          - PSNR: 29.850789 dB; SSIM: 0.894619; PSNR_Y: 31.885810 dB; SSIM_Y: 0.926425.
+24-03-04 18:00:56.281 - INFO: SyabondamaKieta      - PSNR: 26.498465 dB; SSIM: 0.840896; PSNR_Y: 28.187513 dB; SSIM_Y: 0.867711.
+24-03-04 18:00:58.314 - INFO: TaiyouNiSmash        - PSNR: 32.161993 dB; SSIM: 0.924417; PSNR_Y: 35.356193 dB; SSIM_Y: 0.950619.
+24-03-04 18:01:00.329 - INFO: TapkunNoTanteisitsu  - PSNR: 31.442454 dB; SSIM: 0.938326; PSNR_Y: 33.293556 dB; SSIM_Y: 0.959660.
+24-03-04 18:01:02.364 - INFO: TasogareTsushin      - PSNR: 28.280184 dB; SSIM: 0.897801; PSNR_Y: 30.065453 dB; SSIM_Y: 0.920912.
+24-03-04 18:01:04.407 - INFO: TennenSenshiG        - PSNR: 23.167527 dB; SSIM: 0.804293; PSNR_Y: 24.912313 dB; SSIM_Y: 0.854186.
+24-03-04 18:01:06.453 - INFO: TensiNoHaneToAkumaNoShippo - PSNR: 26.745844 dB; SSIM: 0.885026; PSNR_Y: 28.280179 dB; SSIM_Y: 0.903787.
+24-03-04 18:01:08.442 - INFO: TetsuSan             - PSNR: 25.406977 dB; SSIM: 0.931152; PSNR_Y: 26.858237 dB; SSIM_Y: 0.944952.
+24-03-04 18:01:10.494 - INFO: ThatsIzumiko_000     - PSNR: 18.951653 dB; SSIM: 0.692940; PSNR_Y: 20.784510 dB; SSIM_Y: 0.725090.
+24-03-04 18:01:12.510 - INFO: TotteokiNoABC        - PSNR: 30.627175 dB; SSIM: 0.924427; PSNR_Y: 33.036005 dB; SSIM_Y: 0.952015.
+24-03-04 18:01:14.557 - INFO: ToutaMairimasu       - PSNR: 24.466402 dB; SSIM: 0.839677; PSNR_Y: 26.134573 dB; SSIM_Y: 0.877068.
+24-03-04 18:01:16.598 - INFO: TouyouKidan          - PSNR: 27.251865 dB; SSIM: 0.856323; PSNR_Y: 29.274543 dB; SSIM_Y: 0.903948.
+24-03-04 18:01:18.643 - INFO: TsubasaNoKioku       - PSNR: 30.374796 dB; SSIM: 0.824465; PSNR_Y: 32.365156 dB; SSIM_Y: 0.871551.
+24-03-04 18:01:20.648 - INFO: UchiNoNyansDiary_000 - PSNR: 27.265431 dB; SSIM: 0.948411; PSNR_Y: 28.743790 dB; SSIM_Y: 0.962124.
+24-03-04 18:01:22.689 - INFO: UchuKigekiM774       - PSNR: 24.364429 dB; SSIM: 0.722662; PSNR_Y: 25.921928 dB; SSIM_Y: 0.761177.
+24-03-04 18:01:24.709 - INFO: UltraEleven          - PSNR: 21.634858 dB; SSIM: 0.848195; PSNR_Y: 23.185404 dB; SSIM_Y: 0.883174.
+24-03-04 18:01:26.749 - INFO: UnbalanceTokyo       - PSNR: 25.461223 dB; SSIM: 0.874296; PSNR_Y: 27.036013 dB; SSIM_Y: 0.896155.
+24-03-04 18:01:28.782 - INFO: WarewareHaOniDearu   - PSNR: 20.211173 dB; SSIM: 0.741397; PSNR_Y: 22.484216 dB; SSIM_Y: 0.806139.
+24-03-04 18:01:30.829 - INFO: YamatoNoHane         - PSNR: 33.581866 dB; SSIM: 0.949315; PSNR_Y: 36.398179 dB; SSIM_Y: 0.973895.
+24-03-04 18:01:32.845 - INFO: YasasiiAkuma         - PSNR: 27.214718 dB; SSIM: 0.880343; PSNR_Y: 28.488194 dB; SSIM_Y: 0.904559.
+24-03-04 18:01:34.846 - INFO: YouchienBoueigumi    - PSNR: 31.057344 dB; SSIM: 0.945943; PSNR_Y: 33.171166 dB; SSIM_Y: 0.976438.
+24-03-04 18:01:36.896 - INFO: YoumaKourin          - PSNR: 27.220330 dB; SSIM: 0.855648; PSNR_Y: 29.240087 dB; SSIM_Y: 0.881753.
+24-03-04 18:01:38.935 - INFO: YukiNoFuruMachi      - PSNR: 33.812147 dB; SSIM: 0.904287; PSNR_Y: 36.477376 dB; SSIM_Y: 0.934934.
+24-03-04 18:01:40.963 - INFO: YumeNoKayoiji        - PSNR: 29.475644 dB; SSIM: 0.820739; PSNR_Y: 31.295439 dB; SSIM_Y: 0.855304.
+24-03-04 18:01:43.010 - INFO: YumeiroCooking       - PSNR: 24.883174 dB; SSIM: 0.863462; PSNR_Y: 27.431148 dB; SSIM_Y: 0.891156.
+24-03-04 18:01:43.124 - INFO: ----Average PSNR/SSIM results for Manga109----
+	PSNR: 28.221247 dB; SSIM: 0.876152
+
+24-03-04 18:01:43.124 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 30.110672 dB; SSIM_Y: 0.904793
+

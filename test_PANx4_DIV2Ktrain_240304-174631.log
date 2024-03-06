@@ -1,0 +1,713 @@
+24-03-04 17:46:31.004 - INFO:   name: PANx4_DIV2K
+  suffix: None
+  model: sr
+  distortion: sr
+  scale: 4
+  crop_border: None
+  save_img: True
+  gpu_ids: [0]
+  datasets:[
+    test1:[
+      name: Set5
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Set5/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Set5/LR_bicubic/X4
+      phase: test1
+      scale: 4
+      data_type: img
+    ]
+    test2:[
+      name: Set14
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Set14/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Set14/LR_bicubic/X4
+      phase: test2
+      scale: 4
+      data_type: img
+    ]
+    test3:[
+      name: B100
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/B100/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/B100/LR_bicubic/X4
+      phase: test3
+      scale: 4
+      data_type: img
+    ]
+    test4:[
+      name: Urban100
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Urban100/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Urban100/LR_bicubic/X4
+      phase: test4
+      scale: 4
+      data_type: img
+    ]
+    test5:[
+      name: Manga109
+      mode: LQGT
+      dataroot_GT: /home/xxl/PAN/datasets/Manga109/HR
+      dataroot_LQ: /home/xxl/PAN/datasets/Manga109/LR_bicubic/X4
+      phase: test5
+      scale: 4
+      data_type: img
+    ]
+  ]
+  network_G:[
+    which_model_G: PAN
+    in_nc: 3
+    out_nc: 3
+    nf: 40
+    unf: 24
+    nb: 16
+    scale: 4
+  ]
+  path:[
+    pretrain_model_G: /home/xxl/PAN/experiments/PANx4_DIV2K/models/latest_G.pth
+    root: /home/xxl/PAN
+    results_root: /home/xxl/PAN/results/PANx4_DIV2K
+    log: /home/xxl/PAN/results/PANx4_DIV2K
+  ]
+  is_train: False
+
+24-03-04 17:46:31.005 - INFO: Dataset [LQGTDataset - Set5] is created.
+24-03-04 17:46:31.006 - INFO: Number of test images in [Set5]: 5
+24-03-04 17:46:31.006 - INFO: Dataset [LQGTDataset - Set14] is created.
+24-03-04 17:46:31.006 - INFO: Number of test images in [Set14]: 14
+24-03-04 17:46:31.007 - INFO: Dataset [LQGTDataset - B100] is created.
+24-03-04 17:46:31.007 - INFO: Number of test images in [B100]: 100
+24-03-04 17:46:31.008 - INFO: Dataset [LQGTDataset - Urban100] is created.
+24-03-04 17:46:31.008 - INFO: Number of test images in [Urban100]: 100
+24-03-04 17:46:31.008 - INFO: Dataset [LQGTDataset - Manga109] is created.
+24-03-04 17:46:31.008 - INFO: Number of test images in [Manga109]: 109
+24-03-04 17:46:33.450 - INFO: Network G structure: DataParallel - PAN, with parameters: 272,419
+24-03-04 17:46:33.450 - INFO: PAN(
+  (conv_first): Conv2d(3, 40, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (SCPA_trunk): Sequential(
+    (0): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (1): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (2): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (3): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (4): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (5): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (6): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (7): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (8): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (9): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (10): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (11): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (12): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (13): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (14): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+    (15): SCPA(
+      (conv1_a): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (conv1_b): Conv2d(40, 20, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (k1): Sequential(
+        (0): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (PAConv): PAConv(
+        (k2): Conv2d(20, 20, kernel_size=(1, 1), stride=(1, 1))
+        (sigmoid): Sigmoid()
+        (k3): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (k4): Conv2d(20, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      )
+      (conv3): Conv2d(40, 40, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+    )
+  )
+  (trunk_conv): Conv2d(40, 40, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (upconv1): Conv2d(40, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (att1): PA(
+    (conv): Conv2d(24, 24, kernel_size=(1, 1), stride=(1, 1))
+    (sigmoid): Sigmoid()
+  )
+  (HRconv1): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (upconv2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (att2): PA(
+    (conv): Conv2d(24, 24, kernel_size=(1, 1), stride=(1, 1))
+    (sigmoid): Sigmoid()
+  )
+  (HRconv2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (conv_last): Conv2d(24, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (lrelu): LeakyReLU(negative_slope=0.2, inplace=True)
+)
+24-03-04 17:46:33.450 - INFO: Loading model for G [/home/xxl/PAN/experiments/PANx4_DIV2K/models/latest_G.pth] ...
+24-03-04 17:46:33.487 - INFO: Model [SRModel] is created.
+24-03-04 17:46:33.488 - INFO: 
+Testing [Set5]...
+24-03-04 17:46:37.979 - INFO: baby                 - PSNR: 32.176420 dB; SSIM: 0.867503; PSNR_Y: 33.692796 dB; SSIM_Y: 0.892688.
+24-03-04 17:46:38.240 - INFO: bird                 - PSNR: 32.520528 dB; SSIM: 0.922996; PSNR_Y: 34.746428 dB; SSIM_Y: 0.942923.
+24-03-04 17:46:38.483 - INFO: butterfly            - PSNR: 26.744287 dB; SSIM: 0.899362; PSNR_Y: 28.176491 dB; SSIM_Y: 0.920375.
+24-03-04 17:46:38.739 - INFO: head                 - PSNR: 29.898837 dB; SSIM: 0.718602; PSNR_Y: 32.926321 dB; SSIM_Y: 0.795977.
+24-03-04 17:46:38.899 - INFO: woman                - PSNR: 29.007309 dB; SSIM: 0.899444; PSNR_Y: 30.405800 dB; SSIM_Y: 0.911614.
+24-03-04 17:46:38.952 - INFO: ----Average PSNR/SSIM results for Set5----
+	PSNR: 30.069476 dB; SSIM: 0.861581
+
+24-03-04 17:46:38.952 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 31.989567 dB; SSIM_Y: 0.892715
+
+24-03-04 17:46:38.952 - INFO: 
+Testing [Set14]...
+24-03-04 17:46:39.568 - INFO: baboon               - PSNR: 20.938815 dB; SSIM: 0.465457; PSNR_Y: 22.958739 dB; SSIM_Y: 0.530292.
+24-03-04 17:46:40.463 - INFO: barbara              - PSNR: 24.318783 dB; SSIM: 0.711770; PSNR_Y: 25.838161 dB; SSIM_Y: 0.745926.
+24-03-04 17:46:41.136 - INFO: bridge               - PSNR: 24.057762 dB; SSIM: 0.618341; PSNR_Y: 25.380919 dB; SSIM_Y: 0.640106.
+24-03-04 17:46:41.407 - INFO: coastguard           - PSNR: 24.894459 dB; SSIM: 0.533830; PSNR_Y: 26.224830 dB; SSIM_Y: 0.572671.
+24-03-04 17:46:41.582 - INFO: comic                - PSNR: 21.881080 dB; SSIM: 0.704141; PSNR_Y: 23.390956 dB; SSIM_Y: 0.721947.
+24-03-04 17:46:41.828 - INFO: face                 - PSNR: 29.861487 dB; SSIM: 0.716788; PSNR_Y: 32.890394 dB; SSIM_Y: 0.793966.
+24-03-04 17:46:42.219 - INFO: flowers              - PSNR: 26.095620 dB; SSIM: 0.784792; PSNR_Y: 28.112124 dB; SSIM_Y: 0.812599.
+24-03-04 17:46:42.489 - INFO: foreman              - PSNR: 32.087924 dB; SSIM: 0.913888; PSNR_Y: 33.718311 dB; SSIM_Y: 0.930085.
+24-03-04 17:46:43.179 - INFO: lenna                - PSNR: 30.309302 dB; SSIM: 0.787425; PSNR_Y: 32.374027 dB; SSIM_Y: 0.862006.
+24-03-04 17:46:43.864 - INFO: man                  - PSNR: 26.009229 dB; SSIM: 0.725487; PSNR_Y: 27.334715 dB; SSIM_Y: 0.749771.
+24-03-04 17:46:44.826 - INFO: monarch              - PSNR: 31.064577 dB; SSIM: 0.928737; PSNR_Y: 32.511082 dB; SSIM_Y: 0.942105.
+24-03-04 17:46:45.521 - INFO: pepper               - PSNR: 31.154246 dB; SSIM: 0.791511; PSNR_Y: 34.177884 dB; SSIM_Y: 0.880192.
+24-03-04 17:46:46.339 - INFO: ppt3                 - PSNR: 24.737414 dB; SSIM: 0.925105; PSNR_Y: 26.391782 dB; SSIM_Y: 0.944057.
+24-03-04 17:46:46.867 - INFO: zebra                - PSNR: 25.695915 dB; SSIM: 0.760669; PSNR_Y: 27.077186 dB; SSIM_Y: 0.778340.
+24-03-04 17:46:46.980 - INFO: ----Average PSNR/SSIM results for Set14----
+	PSNR: 26.650472 dB; SSIM: 0.740567
+
+24-03-04 17:46:46.981 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 28.455794 dB; SSIM_Y: 0.778862
+
+24-03-04 17:46:46.981 - INFO: 
+Testing [B100]...
+24-03-04 17:46:47.523 - INFO: 101085               - PSNR: 22.680518 dB; SSIM: 0.542737; PSNR_Y: 24.003330 dB; SSIM_Y: 0.576106.
+24-03-04 17:46:47.862 - INFO: 101087               - PSNR: 27.368740 dB; SSIM: 0.793348; PSNR_Y: 28.691290 dB; SSIM_Y: 0.808446.
+24-03-04 17:46:48.191 - INFO: 102061               - PSNR: 25.084849 dB; SSIM: 0.789042; PSNR_Y: 26.441293 dB; SSIM_Y: 0.808216.
+24-03-04 17:46:48.505 - INFO: 103070               - PSNR: 29.221863 dB; SSIM: 0.827865; PSNR_Y: 30.584916 dB; SSIM_Y: 0.843778.
+24-03-04 17:46:48.820 - INFO: 105025               - PSNR: 24.836176 dB; SSIM: 0.683973; PSNR_Y: 26.171808 dB; SSIM_Y: 0.705015.
+24-03-04 17:46:49.133 - INFO: 106024               - PSNR: 32.515772 dB; SSIM: 0.882849; PSNR_Y: 33.946404 dB; SSIM_Y: 0.896405.
+24-03-04 17:46:49.489 - INFO: 108005               - PSNR: 24.918827 dB; SSIM: 0.713052; PSNR_Y: 26.210255 dB; SSIM_Y: 0.743194.
+24-03-04 17:46:49.859 - INFO: 108070               - PSNR: 21.734474 dB; SSIM: 0.550562; PSNR_Y: 23.024994 dB; SSIM_Y: 0.586291.
+24-03-04 17:46:50.186 - INFO: 108082               - PSNR: 26.077983 dB; SSIM: 0.763473; PSNR_Y: 27.422151 dB; SSIM_Y: 0.785478.
+24-03-04 17:46:50.541 - INFO: 109053               - PSNR: 27.917704 dB; SSIM: 0.781430; PSNR_Y: 29.271171 dB; SSIM_Y: 0.801610.
+24-03-04 17:46:50.868 - INFO: 119082               - PSNR: 23.422400 dB; SSIM: 0.710655; PSNR_Y: 24.727369 dB; SSIM_Y: 0.732710.
+24-03-04 17:46:51.181 - INFO: 12084                - PSNR: 26.277489 dB; SSIM: 0.720691; PSNR_Y: 27.779172 dB; SSIM_Y: 0.740439.
+24-03-04 17:46:51.497 - INFO: 123074               - PSNR: 28.657135 dB; SSIM: 0.792963; PSNR_Y: 30.014570 dB; SSIM_Y: 0.809996.
+24-03-04 17:46:51.811 - INFO: 126007               - PSNR: 27.769518 dB; SSIM: 0.802686; PSNR_Y: 29.247703 dB; SSIM_Y: 0.827718.
+24-03-04 17:46:52.142 - INFO: 130026               - PSNR: 23.694099 dB; SSIM: 0.640578; PSNR_Y: 24.988556 dB; SSIM_Y: 0.670478.
+24-03-04 17:46:52.456 - INFO: 134035               - PSNR: 23.075881 dB; SSIM: 0.734287; PSNR_Y: 24.491168 dB; SSIM_Y: 0.751308.
+24-03-04 17:46:52.767 - INFO: 14037                - PSNR: 33.322621 dB; SSIM: 0.873148; PSNR_Y: 34.733468 dB; SSIM_Y: 0.894234.
+24-03-04 17:46:53.077 - INFO: 143090               - PSNR: 31.293308 dB; SSIM: 0.873081; PSNR_Y: 32.880455 dB; SSIM_Y: 0.888439.
+24-03-04 17:46:53.388 - INFO: 145086               - PSNR: 24.870317 dB; SSIM: 0.709926; PSNR_Y: 26.206886 dB; SSIM_Y: 0.738462.
+24-03-04 17:46:53.700 - INFO: 147091               - PSNR: 24.635790 dB; SSIM: 0.774426; PSNR_Y: 26.002755 dB; SSIM_Y: 0.798268.
+24-03-04 17:46:54.028 - INFO: 148026               - PSNR: 20.811678 dB; SSIM: 0.663408; PSNR_Y: 22.100818 dB; SSIM_Y: 0.689761.
+24-03-04 17:46:54.342 - INFO: 148089               - PSNR: 22.519405 dB; SSIM: 0.594659; PSNR_Y: 23.806161 dB; SSIM_Y: 0.623586.
+24-03-04 17:46:54.655 - INFO: 156065               - PSNR: 23.511927 dB; SSIM: 0.530568; PSNR_Y: 24.815424 dB; SSIM_Y: 0.565828.
+24-03-04 17:46:54.969 - INFO: 157055               - PSNR: 25.091629 dB; SSIM: 0.767849; PSNR_Y: 26.498844 dB; SSIM_Y: 0.787406.
+24-03-04 17:46:55.283 - INFO: 159008               - PSNR: 26.243306 dB; SSIM: 0.798588; PSNR_Y: 27.525776 dB; SSIM_Y: 0.822720.
+24-03-04 17:46:55.592 - INFO: 160068               - PSNR: 25.586504 dB; SSIM: 0.815340; PSNR_Y: 26.856790 dB; SSIM_Y: 0.830514.
+24-03-04 17:46:55.903 - INFO: 16077                - PSNR: 26.255962 dB; SSIM: 0.701463; PSNR_Y: 27.609636 dB; SSIM_Y: 0.730842.
+24-03-04 17:46:56.211 - INFO: 163085               - PSNR: 28.163705 dB; SSIM: 0.780129; PSNR_Y: 29.539999 dB; SSIM_Y: 0.797441.
+24-03-04 17:46:56.522 - INFO: 167062               - PSNR: 31.023335 dB; SSIM: 0.880398; PSNR_Y: 32.371801 dB; SSIM_Y: 0.898224.
+24-03-04 17:46:56.847 - INFO: 167083               - PSNR: 18.538444 dB; SSIM: 0.484011; PSNR_Y: 19.847476 dB; SSIM_Y: 0.499731.
+24-03-04 17:46:57.158 - INFO: 170057               - PSNR: 28.463474 dB; SSIM: 0.791314; PSNR_Y: 29.759998 dB; SSIM_Y: 0.817597.
+24-03-04 17:46:57.483 - INFO: 175032               - PSNR: 19.604850 dB; SSIM: 0.404969; PSNR_Y: 20.892065 dB; SSIM_Y: 0.428763.
+24-03-04 17:46:57.840 - INFO: 175043               - PSNR: 23.787562 dB; SSIM: 0.642035; PSNR_Y: 25.113403 dB; SSIM_Y: 0.665932.
+24-03-04 17:46:58.161 - INFO: 182053               - PSNR: 23.048556 dB; SSIM: 0.741753; PSNR_Y: 24.359168 dB; SSIM_Y: 0.759401.
+24-03-04 17:46:58.484 - INFO: 189080               - PSNR: 33.631601 dB; SSIM: 0.865589; PSNR_Y: 34.997556 dB; SSIM_Y: 0.891052.
+24-03-04 17:46:58.799 - INFO: 19021                - PSNR: 25.569699 dB; SSIM: 0.715465; PSNR_Y: 26.944003 dB; SSIM_Y: 0.742253.
+24-03-04 17:46:59.111 - INFO: 196073               - PSNR: 26.552978 dB; SSIM: 0.456871; PSNR_Y: 27.881667 dB; SSIM_Y: 0.510155.
+24-03-04 17:46:59.423 - INFO: 197017               - PSNR: 26.841241 dB; SSIM: 0.689660; PSNR_Y: 28.175538 dB; SSIM_Y: 0.717486.
+24-03-04 17:46:59.751 - INFO: 208001               - PSNR: 27.149724 dB; SSIM: 0.707152; PSNR_Y: 28.398614 dB; SSIM_Y: 0.744582.
+24-03-04 17:47:00.077 - INFO: 210088               - PSNR: 33.962323 dB; SSIM: 0.940629; PSNR_Y: 35.736908 dB; SSIM_Y: 0.954836.
+24-03-04 17:47:00.407 - INFO: 21077                - PSNR: 25.598113 dB; SSIM: 0.714597; PSNR_Y: 26.955126 dB; SSIM_Y: 0.747677.
+24-03-04 17:47:00.720 - INFO: 216081               - PSNR: 24.585551 dB; SSIM: 0.689793; PSNR_Y: 25.827725 dB; SSIM_Y: 0.721041.
+24-03-04 17:47:01.034 - INFO: 219090               - PSNR: 25.320798 dB; SSIM: 0.724490; PSNR_Y: 26.636689 dB; SSIM_Y: 0.754690.
+24-03-04 17:47:01.346 - INFO: 220075               - PSNR: 26.482170 dB; SSIM: 0.853161; PSNR_Y: 27.844613 dB; SSIM_Y: 0.872465.
+24-03-04 17:47:01.702 - INFO: 223061               - PSNR: 23.348152 dB; SSIM: 0.651801; PSNR_Y: 24.680198 dB; SSIM_Y: 0.671004.
+24-03-04 17:47:02.039 - INFO: 227092               - PSNR: 33.316699 dB; SSIM: 0.846097; PSNR_Y: 34.733704 dB; SSIM_Y: 0.866475.
+24-03-04 17:47:02.391 - INFO: 229036               - PSNR: 21.389336 dB; SSIM: 0.593728; PSNR_Y: 22.714636 dB; SSIM_Y: 0.619608.
+24-03-04 17:47:02.757 - INFO: 236037               - PSNR: 23.562087 dB; SSIM: 0.608889; PSNR_Y: 24.919837 dB; SSIM_Y: 0.629386.
+24-03-04 17:47:03.121 - INFO: 24077                - PSNR: 25.609223 dB; SSIM: 0.858407; PSNR_Y: 27.129761 dB; SSIM_Y: 0.872236.
+24-03-04 17:47:03.441 - INFO: 241004               - PSNR: 30.803040 dB; SSIM: 0.812933; PSNR_Y: 32.175063 dB; SSIM_Y: 0.840421.
+24-03-04 17:47:03.794 - INFO: 241048               - PSNR: 23.453125 dB; SSIM: 0.584907; PSNR_Y: 24.774627 dB; SSIM_Y: 0.611285.
+24-03-04 17:47:04.121 - INFO: 253027               - PSNR: 21.184161 dB; SSIM: 0.678095; PSNR_Y: 22.519360 dB; SSIM_Y: 0.701892.
+24-03-04 17:47:04.430 - INFO: 253055               - PSNR: 31.142630 dB; SSIM: 0.818109; PSNR_Y: 32.484703 dB; SSIM_Y: 0.845896.
+24-03-04 17:47:04.738 - INFO: 260058               - PSNR: 31.204859 dB; SSIM: 0.762997; PSNR_Y: 32.545983 dB; SSIM_Y: 0.797370.
+24-03-04 17:47:05.104 - INFO: 271035               - PSNR: 26.309341 dB; SSIM: 0.747159; PSNR_Y: 27.651707 dB; SSIM_Y: 0.774276.
+24-03-04 17:47:05.443 - INFO: 285079               - PSNR: 24.203117 dB; SSIM: 0.662447; PSNR_Y: 25.570062 dB; SSIM_Y: 0.691851.
+24-03-04 17:47:05.754 - INFO: 291000               - PSNR: 20.033025 dB; SSIM: 0.403100; PSNR_Y: 21.412450 dB; SSIM_Y: 0.425934.
+24-03-04 17:47:06.064 - INFO: 295087               - PSNR: 26.148468 dB; SSIM: 0.698934; PSNR_Y: 27.479275 dB; SSIM_Y: 0.722854.
+24-03-04 17:47:06.373 - INFO: 296007               - PSNR: 30.667886 dB; SSIM: 0.759684; PSNR_Y: 32.002508 dB; SSIM_Y: 0.791862.
+24-03-04 17:47:06.687 - INFO: 296059               - PSNR: 29.893658 dB; SSIM: 0.756959; PSNR_Y: 31.267729 dB; SSIM_Y: 0.787861.
+24-03-04 17:47:06.994 - INFO: 299086               - PSNR: 30.294198 dB; SSIM: 0.779664; PSNR_Y: 31.677098 dB; SSIM_Y: 0.810887.
+24-03-04 17:47:07.306 - INFO: 300091               - PSNR: 27.586699 dB; SSIM: 0.762519; PSNR_Y: 28.947631 dB; SSIM_Y: 0.789948.
+24-03-04 17:47:07.671 - INFO: 302008               - PSNR: 32.159756 dB; SSIM: 0.940899; PSNR_Y: 33.625255 dB; SSIM_Y: 0.950551.
+24-03-04 17:47:08.041 - INFO: 304034               - PSNR: 22.932900 dB; SSIM: 0.639691; PSNR_Y: 24.224991 dB; SSIM_Y: 0.665980.
+24-03-04 17:47:08.401 - INFO: 304074               - PSNR: 24.633091 dB; SSIM: 0.586430; PSNR_Y: 25.970106 dB; SSIM_Y: 0.619847.
+24-03-04 17:47:08.762 - INFO: 306005               - PSNR: 26.844152 dB; SSIM: 0.767608; PSNR_Y: 28.242176 dB; SSIM_Y: 0.789138.
+24-03-04 17:47:09.128 - INFO: 3096                 - PSNR: 38.462144 dB; SSIM: 0.973403; PSNR_Y: 39.920572 dB; SSIM_Y: 0.980687.
+24-03-04 17:47:09.466 - INFO: 33039                - PSNR: 19.564346 dB; SSIM: 0.555903; PSNR_Y: 20.870861 dB; SSIM_Y: 0.572585.
+24-03-04 17:47:09.780 - INFO: 351093               - PSNR: 21.427369 dB; SSIM: 0.624973; PSNR_Y: 22.737819 dB; SSIM_Y: 0.646033.
+24-03-04 17:47:10.136 - INFO: 361010               - PSNR: 27.497261 dB; SSIM: 0.776823; PSNR_Y: 28.828086 dB; SSIM_Y: 0.811166.
+24-03-04 17:47:10.465 - INFO: 37073                - PSNR: 29.110791 dB; SSIM: 0.780278; PSNR_Y: 30.472707 dB; SSIM_Y: 0.816133.
+24-03-04 17:47:10.794 - INFO: 376043               - PSNR: 24.085160 dB; SSIM: 0.573271; PSNR_Y: 25.464336 dB; SSIM_Y: 0.594814.
+24-03-04 17:47:11.147 - INFO: 38082                - PSNR: 25.863026 dB; SSIM: 0.570031; PSNR_Y: 27.189921 dB; SSIM_Y: 0.602482.
+24-03-04 17:47:11.470 - INFO: 38092                - PSNR: 24.981941 dB; SSIM: 0.669760; PSNR_Y: 26.280326 dB; SSIM_Y: 0.695722.
+24-03-04 17:47:11.786 - INFO: 385039               - PSNR: 22.691516 dB; SSIM: 0.670054; PSNR_Y: 24.029751 dB; SSIM_Y: 0.696139.
+24-03-04 17:47:12.096 - INFO: 41033                - PSNR: 29.319192 dB; SSIM: 0.757502; PSNR_Y: 30.664324 dB; SSIM_Y: 0.788967.
+24-03-04 17:47:12.406 - INFO: 41069                - PSNR: 22.308769 dB; SSIM: 0.449653; PSNR_Y: 23.620486 dB; SSIM_Y: 0.479571.
+24-03-04 17:47:12.732 - INFO: 42012                - PSNR: 28.552107 dB; SSIM: 0.795845; PSNR_Y: 29.889084 dB; SSIM_Y: 0.815578.
+24-03-04 17:47:13.042 - INFO: 42049                - PSNR: 31.133560 dB; SSIM: 0.941070; PSNR_Y: 32.506624 dB; SSIM_Y: 0.950580.
+24-03-04 17:47:13.353 - INFO: 43074                - PSNR: 28.511041 dB; SSIM: 0.798281; PSNR_Y: 29.768895 dB; SSIM_Y: 0.819076.
+24-03-04 17:47:13.706 - INFO: 45096                - PSNR: 34.338825 dB; SSIM: 0.921286; PSNR_Y: 35.793471 dB; SSIM_Y: 0.938799.
+24-03-04 17:47:14.044 - INFO: 54082                - PSNR: 27.138306 dB; SSIM: 0.682782; PSNR_Y: 28.474307 dB; SSIM_Y: 0.711616.
+24-03-04 17:47:14.370 - INFO: 55073                - PSNR: 20.946035 dB; SSIM: 0.491746; PSNR_Y: 22.187033 dB; SSIM_Y: 0.526620.
+24-03-04 17:47:14.681 - INFO: 58060                - PSNR: 19.774746 dB; SSIM: 0.577743; PSNR_Y: 21.017539 dB; SSIM_Y: 0.601017.
+24-03-04 17:47:14.993 - INFO: 62096                - PSNR: 24.115533 dB; SSIM: 0.766438; PSNR_Y: 25.517527 dB; SSIM_Y: 0.788510.
+24-03-04 17:47:15.304 - INFO: 65033                - PSNR: 23.723171 dB; SSIM: 0.548583; PSNR_Y: 24.963197 dB; SSIM_Y: 0.592626.
+24-03-04 17:47:15.618 - INFO: 66053                - PSNR: 26.073162 dB; SSIM: 0.664708; PSNR_Y: 27.339762 dB; SSIM_Y: 0.695130.
+24-03-04 17:47:15.943 - INFO: 69015                - PSNR: 29.256679 dB; SSIM: 0.785720; PSNR_Y: 30.614973 dB; SSIM_Y: 0.807566.
+24-03-04 17:47:16.255 - INFO: 69020                - PSNR: 25.860454 dB; SSIM: 0.535051; PSNR_Y: 27.226819 dB; SSIM_Y: 0.562408.
+24-03-04 17:47:16.568 - INFO: 69040                - PSNR: 23.656383 dB; SSIM: 0.617907; PSNR_Y: 25.004264 dB; SSIM_Y: 0.639936.
+24-03-04 17:47:16.880 - INFO: 76053                - PSNR: 27.784015 dB; SSIM: 0.660772; PSNR_Y: 29.060811 dB; SSIM_Y: 0.707289.
+24-03-04 17:47:17.205 - INFO: 78004                - PSNR: 25.134809 dB; SSIM: 0.722355; PSNR_Y: 26.459179 dB; SSIM_Y: 0.748287.
+24-03-04 17:47:17.560 - INFO: 8023                 - PSNR: 29.213819 dB; SSIM: 0.859529; PSNR_Y: 30.637930 dB; SSIM_Y: 0.873881.
+24-03-04 17:47:17.884 - INFO: 85048                - PSNR: 24.485482 dB; SSIM: 0.689457; PSNR_Y: 25.847740 dB; SSIM_Y: 0.712373.
+24-03-04 17:47:18.210 - INFO: 86000                - PSNR: 24.511438 dB; SSIM: 0.770681; PSNR_Y: 25.855733 dB; SSIM_Y: 0.791419.
+24-03-04 17:47:18.563 - INFO: 86016                - PSNR: 20.578073 dB; SSIM: 0.288390; PSNR_Y: 21.903916 dB; SSIM_Y: 0.314807.
+24-03-04 17:47:18.928 - INFO: 86068                - PSNR: 25.676557 dB; SSIM: 0.516479; PSNR_Y: 26.996300 dB; SSIM_Y: 0.558165.
+24-03-04 17:47:19.296 - INFO: 87046                - PSNR: 24.846927 dB; SSIM: 0.756870; PSNR_Y: 26.175297 dB; SSIM_Y: 0.773976.
+24-03-04 17:47:19.634 - INFO: 89072                - PSNR: 25.472125 dB; SSIM: 0.703044; PSNR_Y: 26.806192 dB; SSIM_Y: 0.731025.
+24-03-04 17:47:19.947 - INFO: 97033                - PSNR: 23.661542 dB; SSIM: 0.699502; PSNR_Y: 24.969568 dB; SSIM_Y: 0.722744.
+24-03-04 17:47:20.060 - INFO: ----Average PSNR/SSIM results for B100----
+	PSNR: 26.141959 dB; SSIM: 0.708316
+
+24-03-04 17:47:20.060 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 27.491797 dB; SSIM_Y: 0.733249
+
+24-03-04 17:47:20.060 - INFO: 
+Testing [Urban100]...
+24-03-04 17:47:21.672 - INFO: img001               - PSNR: 26.066698 dB; SSIM: 0.736873; PSNR_Y: 27.481612 dB; SSIM_Y: 0.764014.
+24-03-04 17:47:23.463 - INFO: img002               - PSNR: 25.182364 dB; SSIM: 0.789578; PSNR_Y: 26.573604 dB; SSIM_Y: 0.810979.
+24-03-04 17:47:24.921 - INFO: img003               - PSNR: 22.140431 dB; SSIM: 0.643017; PSNR_Y: 23.744166 dB; SSIM_Y: 0.679375.
+24-03-04 17:47:26.379 - INFO: img004               - PSNR: 21.613182 dB; SSIM: 0.808113; PSNR_Y: 22.918883 dB; SSIM_Y: 0.824841.
+24-03-04 17:47:28.139 - INFO: img005               - PSNR: 25.736058 dB; SSIM: 0.930636; PSNR_Y: 27.065318 dB; SSIM_Y: 0.943570.
+24-03-04 17:47:30.543 - INFO: img006               - PSNR: 21.025584 dB; SSIM: 0.597121; PSNR_Y: 22.368426 dB; SSIM_Y: 0.621921.
+24-03-04 17:47:32.003 - INFO: img007               - PSNR: 27.865029 dB; SSIM: 0.840401; PSNR_Y: 29.422153 dB; SSIM_Y: 0.860965.
+24-03-04 17:47:33.315 - INFO: img008               - PSNR: 19.938871 dB; SSIM: 0.629245; PSNR_Y: 21.168851 dB; SSIM_Y: 0.639028.
+24-03-04 17:47:35.108 - INFO: img009               - PSNR: 32.058282 dB; SSIM: 0.905017; PSNR_Y: 33.807261 dB; SSIM_Y: 0.923883.
+24-03-04 17:47:36.921 - INFO: img010               - PSNR: 25.850058 dB; SSIM: 0.866278; PSNR_Y: 27.254170 dB; SSIM_Y: 0.887067.
+24-03-04 17:47:38.204 - INFO: img011               - PSNR: 16.449138 dB; SSIM: 0.775639; PSNR_Y: 17.775627 dB; SSIM_Y: 0.795667.
+24-03-04 17:47:39.958 - INFO: img012               - PSNR: 21.839674 dB; SSIM: 0.697073; PSNR_Y: 23.709518 dB; SSIM_Y: 0.722204.
+24-03-04 17:47:41.726 - INFO: img013               - PSNR: 28.106148 dB; SSIM: 0.790391; PSNR_Y: 29.463462 dB; SSIM_Y: 0.835668.
+24-03-04 17:47:44.097 - INFO: img014               - PSNR: 21.062235 dB; SSIM: 0.665160; PSNR_Y: 22.354079 dB; SSIM_Y: 0.683307.
+24-03-04 17:47:45.830 - INFO: img015               - PSNR: 24.568703 dB; SSIM: 0.686728; PSNR_Y: 25.999555 dB; SSIM_Y: 0.731509.
+24-03-04 17:47:48.205 - INFO: img016               - PSNR: 28.670848 dB; SSIM: 0.896874; PSNR_Y: 30.084332 dB; SSIM_Y: 0.910983.
+24-03-04 17:47:49.647 - INFO: img017               - PSNR: 24.102065 dB; SSIM: 0.807517; PSNR_Y: 25.578919 dB; SSIM_Y: 0.822766.
+24-03-04 17:47:51.372 - INFO: img018               - PSNR: 24.508958 dB; SSIM: 0.669342; PSNR_Y: 26.290015 dB; SSIM_Y: 0.707658.
+24-03-04 17:47:52.795 - INFO: img019               - PSNR: 20.057783 dB; SSIM: 0.749395; PSNR_Y: 21.499221 dB; SSIM_Y: 0.798273.
+24-03-04 17:47:55.419 - INFO: img020               - PSNR: 20.576309 dB; SSIM: 0.695326; PSNR_Y: 21.947076 dB; SSIM_Y: 0.711368.
+24-03-04 17:47:57.406 - INFO: img021               - PSNR: 28.149631 dB; SSIM: 0.756568; PSNR_Y: 29.533514 dB; SSIM_Y: 0.783718.
+24-03-04 17:47:58.839 - INFO: img022               - PSNR: 24.664503 dB; SSIM: 0.731418; PSNR_Y: 25.999632 dB; SSIM_Y: 0.752536.
+24-03-04 17:48:01.157 - INFO: img023               - PSNR: 28.213922 dB; SSIM: 0.891298; PSNR_Y: 29.993718 dB; SSIM_Y: 0.908757.
+24-03-04 17:48:02.592 - INFO: img024               - PSNR: 18.382834 dB; SSIM: 0.605580; PSNR_Y: 19.738331 dB; SSIM_Y: 0.620967.
+24-03-04 17:48:04.265 - INFO: img025               - PSNR: 30.545462 dB; SSIM: 0.876952; PSNR_Y: 32.057543 dB; SSIM_Y: 0.901699.
+24-03-04 17:48:06.102 - INFO: img026               - PSNR: 26.589113 dB; SSIM: 0.652519; PSNR_Y: 28.053676 dB; SSIM_Y: 0.705282.
+24-03-04 17:48:08.029 - INFO: img027               - PSNR: 26.976801 dB; SSIM: 0.772162; PSNR_Y: 28.201212 dB; SSIM_Y: 0.793268.
+24-03-04 17:48:09.484 - INFO: img028               - PSNR: 29.870429 dB; SSIM: 0.855428; PSNR_Y: 31.197068 dB; SSIM_Y: 0.872465.
+24-03-04 17:48:10.945 - INFO: img029               - PSNR: 25.587774 dB; SSIM: 0.843725; PSNR_Y: 26.972000 dB; SSIM_Y: 0.865173.
+24-03-04 17:48:12.393 - INFO: img030               - PSNR: 22.483804 dB; SSIM: 0.772901; PSNR_Y: 24.269190 dB; SSIM_Y: 0.797977.
+24-03-04 17:48:13.830 - INFO: img031               - PSNR: 22.610712 dB; SSIM: 0.767665; PSNR_Y: 24.051583 dB; SSIM_Y: 0.785117.
+24-03-04 17:48:15.296 - INFO: img032               - PSNR: 27.308006 dB; SSIM: 0.826623; PSNR_Y: 28.850877 dB; SSIM_Y: 0.846321.
+24-03-04 17:48:16.740 - INFO: img033               - PSNR: 25.370047 dB; SSIM: 0.767691; PSNR_Y: 27.125552 dB; SSIM_Y: 0.794903.
+24-03-04 17:48:18.194 - INFO: img034               - PSNR: 21.055397 dB; SSIM: 0.571621; PSNR_Y: 22.961469 dB; SSIM_Y: 0.581177.
+24-03-04 17:48:19.663 - INFO: img035               - PSNR: 27.446109 dB; SSIM: 0.848105; PSNR_Y: 28.876796 dB; SSIM_Y: 0.869328.
+24-03-04 17:48:21.141 - INFO: img036               - PSNR: 27.526657 dB; SSIM: 0.873386; PSNR_Y: 28.850279 dB; SSIM_Y: 0.885870.
+24-03-04 17:48:22.656 - INFO: img037               - PSNR: 24.921194 dB; SSIM: 0.774021; PSNR_Y: 26.309555 dB; SSIM_Y: 0.798307.
+24-03-04 17:48:24.394 - INFO: img038               - PSNR: 25.456568 dB; SSIM: 0.620483; PSNR_Y: 26.893172 dB; SSIM_Y: 0.669058.
+24-03-04 17:48:26.140 - INFO: img039               - PSNR: 21.549618 dB; SSIM: 0.717244; PSNR_Y: 22.933609 dB; SSIM_Y: 0.736580.
+24-03-04 17:48:27.434 - INFO: img040               - PSNR: 26.219933 dB; SSIM: 0.937100; PSNR_Y: 27.614106 dB; SSIM_Y: 0.944970.
+24-03-04 17:48:28.905 - INFO: img041               - PSNR: 24.227371 dB; SSIM: 0.859022; PSNR_Y: 25.711483 dB; SSIM_Y: 0.871343.
+24-03-04 17:48:30.381 - INFO: img042               - PSNR: 27.259780 dB; SSIM: 0.872325; PSNR_Y: 28.585069 dB; SSIM_Y: 0.881831.
+24-03-04 17:48:31.853 - INFO: img043               - PSNR: 30.433036 dB; SSIM: 0.911553; PSNR_Y: 32.086882 dB; SSIM_Y: 0.934564.
+24-03-04 17:48:33.317 - INFO: img044               - PSNR: 29.148355 dB; SSIM: 0.829468; PSNR_Y: 30.968313 dB; SSIM_Y: 0.854364.
+24-03-04 17:48:35.069 - INFO: img045               - PSNR: 22.578187 dB; SSIM: 0.687697; PSNR_Y: 23.905683 dB; SSIM_Y: 0.701092.
+24-03-04 17:48:36.492 - INFO: img046               - PSNR: 22.061245 dB; SSIM: 0.741479; PSNR_Y: 23.494726 dB; SSIM_Y: 0.746389.
+24-03-04 17:48:37.849 - INFO: img047               - PSNR: 20.236151 dB; SSIM: 0.747415; PSNR_Y: 21.721347 dB; SSIM_Y: 0.758542.
+24-03-04 17:48:39.291 - INFO: img048               - PSNR: 18.616311 dB; SSIM: 0.788550; PSNR_Y: 19.918741 dB; SSIM_Y: 0.798729.
+24-03-04 17:48:40.751 - INFO: img049               - PSNR: 21.767752 dB; SSIM: 0.724527; PSNR_Y: 23.303915 dB; SSIM_Y: 0.745268.
+24-03-04 17:48:42.189 - INFO: img050               - PSNR: 23.682088 dB; SSIM: 0.746467; PSNR_Y: 25.105869 dB; SSIM_Y: 0.762925.
+24-03-04 17:48:43.656 - INFO: img051               - PSNR: 25.719962 dB; SSIM: 0.822147; PSNR_Y: 27.230030 dB; SSIM_Y: 0.843493.
+24-03-04 17:48:45.118 - INFO: img052               - PSNR: 27.397937 dB; SSIM: 0.892573; PSNR_Y: 28.769803 dB; SSIM_Y: 0.906246.
+24-03-04 17:48:46.523 - INFO: img053               - PSNR: 20.935699 dB; SSIM: 0.706213; PSNR_Y: 22.273546 dB; SSIM_Y: 0.720327.
+24-03-04 17:48:47.961 - INFO: img054               - PSNR: 19.579479 dB; SSIM: 0.623707; PSNR_Y: 21.065226 dB; SSIM_Y: 0.643180.
+24-03-04 17:48:49.703 - INFO: img055               - PSNR: 30.560631 dB; SSIM: 0.911116; PSNR_Y: 32.464986 dB; SSIM_Y: 0.944168.
+24-03-04 17:48:51.461 - INFO: img056               - PSNR: 23.442876 dB; SSIM: 0.757261; PSNR_Y: 24.810899 dB; SSIM_Y: 0.775474.
+24-03-04 17:48:52.977 - INFO: img057               - PSNR: 29.120465 dB; SSIM: 0.870245; PSNR_Y: 30.555412 dB; SSIM_Y: 0.888502.
+24-03-04 17:48:54.453 - INFO: img058               - PSNR: 24.043294 dB; SSIM: 0.834006; PSNR_Y: 25.488289 dB; SSIM_Y: 0.847609.
+24-03-04 17:48:55.887 - INFO: img059               - PSNR: 20.358696 dB; SSIM: 0.730446; PSNR_Y: 21.749126 dB; SSIM_Y: 0.748694.
+24-03-04 17:48:57.347 - INFO: img060               - PSNR: 21.091130 dB; SSIM: 0.543031; PSNR_Y: 22.491751 dB; SSIM_Y: 0.560353.
+24-03-04 17:48:58.782 - INFO: img061               - PSNR: 22.774354 dB; SSIM: 0.721976; PSNR_Y: 24.354606 dB; SSIM_Y: 0.738489.
+24-03-04 17:49:00.253 - INFO: img062               - PSNR: 19.638495 dB; SSIM: 0.765771; PSNR_Y: 21.059046 dB; SSIM_Y: 0.782292.
+24-03-04 17:49:02.309 - INFO: img063               - PSNR: 21.050916 dB; SSIM: 0.577564; PSNR_Y: 22.362754 dB; SSIM_Y: 0.618177.
+24-03-04 17:49:03.769 - INFO: img064               - PSNR: 24.989561 dB; SSIM: 0.759111; PSNR_Y: 26.340384 dB; SSIM_Y: 0.775930.
+24-03-04 17:49:05.227 - INFO: img065               - PSNR: 23.670499 dB; SSIM: 0.695506; PSNR_Y: 25.348918 dB; SSIM_Y: 0.716415.
+24-03-04 17:49:07.110 - INFO: img066               - PSNR: 20.862476 dB; SSIM: 0.618842; PSNR_Y: 22.187404 dB; SSIM_Y: 0.641720.
+24-03-04 17:49:08.556 - INFO: img067               - PSNR: 17.579175 dB; SSIM: 0.838332; PSNR_Y: 19.025495 dB; SSIM_Y: 0.859926.
+24-03-04 17:49:10.858 - INFO: img068               - PSNR: 28.725011 dB; SSIM: 0.868455; PSNR_Y: 30.131717 dB; SSIM_Y: 0.883703.
+24-03-04 17:49:12.859 - INFO: img069               - PSNR: 23.324536 dB; SSIM: 0.726391; PSNR_Y: 24.649184 dB; SSIM_Y: 0.747350.
+24-03-04 17:49:14.587 - INFO: img070               - PSNR: 20.755301 dB; SSIM: 0.572263; PSNR_Y: 22.076513 dB; SSIM_Y: 0.591944.
+24-03-04 17:49:16.325 - INFO: img071               - PSNR: 26.398149 dB; SSIM: 0.616704; PSNR_Y: 27.758831 dB; SSIM_Y: 0.654210.
+24-03-04 17:49:17.768 - INFO: img072               - PSNR: 18.663843 dB; SSIM: 0.809095; PSNR_Y: 19.990266 dB; SSIM_Y: 0.815105.
+24-03-04 17:49:19.513 - INFO: img073               - PSNR: 18.669687 dB; SSIM: 0.528658; PSNR_Y: 19.964726 dB; SSIM_Y: 0.547057.
+24-03-04 17:49:20.944 - INFO: img074               - PSNR: 21.904294 dB; SSIM: 0.671692; PSNR_Y: 23.390614 dB; SSIM_Y: 0.683325.
+24-03-04 17:49:22.404 - INFO: img075               - PSNR: 29.846429 dB; SSIM: 0.864530; PSNR_Y: 31.682416 dB; SSIM_Y: 0.887852.
+24-03-04 17:49:23.869 - INFO: img076               - PSNR: 21.041598 dB; SSIM: 0.693871; PSNR_Y: 22.524353 dB; SSIM_Y: 0.712571.
+24-03-04 17:49:25.320 - INFO: img077               - PSNR: 21.252388 dB; SSIM: 0.654756; PSNR_Y: 22.651344 dB; SSIM_Y: 0.671896.
+24-03-04 17:49:26.845 - INFO: img078               - PSNR: 25.774580 dB; SSIM: 0.729914; PSNR_Y: 26.977932 dB; SSIM_Y: 0.764559.
+24-03-04 17:49:28.618 - INFO: img079               - PSNR: 23.774450 dB; SSIM: 0.661634; PSNR_Y: 25.208369 dB; SSIM_Y: 0.689449.
+24-03-04 17:49:30.398 - INFO: img080               - PSNR: 33.989783 dB; SSIM: 0.936467; PSNR_Y: 35.522493 dB; SSIM_Y: 0.950852.
+24-03-04 17:49:32.707 - INFO: img081               - PSNR: 34.399728 dB; SSIM: 0.943171; PSNR_Y: 37.277223 dB; SSIM_Y: 0.970982.
+24-03-04 17:49:34.965 - INFO: img082               - PSNR: 31.291975 dB; SSIM: 0.921969; PSNR_Y: 32.792340 dB; SSIM_Y: 0.941682.
+24-03-04 17:49:37.227 - INFO: img083               - PSNR: 20.819123 dB; SSIM: 0.671892; PSNR_Y: 22.087729 dB; SSIM_Y: 0.688691.
+24-03-04 17:49:39.511 - INFO: img084               - PSNR: 26.987961 dB; SSIM: 0.778487; PSNR_Y: 28.531362 dB; SSIM_Y: 0.806095.
+24-03-04 17:49:40.941 - INFO: img085               - PSNR: 26.240790 dB; SSIM: 0.881644; PSNR_Y: 27.798118 dB; SSIM_Y: 0.893610.
+24-03-04 17:49:42.670 - INFO: img086               - PSNR: 28.846664 dB; SSIM: 0.865481; PSNR_Y: 30.294292 dB; SSIM_Y: 0.883556.
+24-03-04 17:49:44.957 - INFO: img087               - PSNR: 26.037439 dB; SSIM: 0.856746; PSNR_Y: 27.471509 dB; SSIM_Y: 0.879956.
+24-03-04 17:49:46.405 - INFO: img088               - PSNR: 18.402820 dB; SSIM: 0.542052; PSNR_Y: 19.742173 dB; SSIM_Y: 0.561000.
+24-03-04 17:49:48.171 - INFO: img089               - PSNR: 25.314451 dB; SSIM: 0.691068; PSNR_Y: 26.658082 dB; SSIM_Y: 0.712234.
+24-03-04 17:49:49.606 - INFO: img090               - PSNR: 36.228513 dB; SSIM: 0.965258; PSNR_Y: 37.968467 dB; SSIM_Y: 0.975606.
+24-03-04 17:49:51.053 - INFO: img091               - PSNR: 21.753235 dB; SSIM: 0.618652; PSNR_Y: 23.562004 dB; SSIM_Y: 0.653309.
+24-03-04 17:49:52.523 - INFO: img092               - PSNR: 17.454236 dB; SSIM: 0.629351; PSNR_Y: 18.782971 dB; SSIM_Y: 0.648722.
+24-03-04 17:49:54.285 - INFO: img093               - PSNR: 26.717514 dB; SSIM: 0.906981; PSNR_Y: 28.128903 dB; SSIM_Y: 0.923177.
+24-03-04 17:49:56.028 - INFO: img094               - PSNR: 25.676289 dB; SSIM: 0.743447; PSNR_Y: 27.071754 dB; SSIM_Y: 0.781627.
+24-03-04 17:49:57.798 - INFO: img095               - PSNR: 18.587885 dB; SSIM: 0.404353; PSNR_Y: 19.911331 dB; SSIM_Y: 0.422879.
+24-03-04 17:49:59.560 - INFO: img096               - PSNR: 22.669195 dB; SSIM: 0.824608; PSNR_Y: 23.972059 dB; SSIM_Y: 0.838455.
+24-03-04 17:50:01.021 - INFO: img097               - PSNR: 23.267178 dB; SSIM: 0.734925; PSNR_Y: 24.688329 dB; SSIM_Y: 0.752621.
+24-03-04 17:50:02.494 - INFO: img098               - PSNR: 19.162852 dB; SSIM: 0.494836; PSNR_Y: 20.546493 dB; SSIM_Y: 0.515709.
+24-03-04 17:50:04.295 - INFO: img099               - PSNR: 22.761686 dB; SSIM: 0.708835; PSNR_Y: 25.082852 dB; SSIM_Y: 0.761601.
+24-03-04 17:50:06.623 - INFO: img100               - PSNR: 22.105086 dB; SSIM: 0.672596; PSNR_Y: 26.108375 dB; SSIM_Y: 0.744046.
+24-03-04 17:50:06.737 - INFO: ----Average PSNR/SSIM results for Urban100----
+	PSNR: 24.300175 dB; SSIM: 0.754093
+
+24-03-04 17:50:06.737 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 25.803740 dB; SSIM_Y: 0.776100
+
+24-03-04 17:50:06.738 - INFO: 
+Testing [Manga109]...
+24-03-04 17:50:08.960 - INFO: ARMS                 - PSNR: 26.211273 dB; SSIM: 0.768744; PSNR_Y: 28.098261 dB; SSIM_Y: 0.808010.
+24-03-04 17:50:10.942 - INFO: AisazuNihaIrarenai   - PSNR: 28.446608 dB; SSIM: 0.769441; PSNR_Y: 30.759894 dB; SSIM_Y: 0.809994.
+24-03-04 17:50:12.917 - INFO: AkkeraKanjinchou     - PSNR: 26.108920 dB; SSIM: 0.807121; PSNR_Y: 27.786190 dB; SSIM_Y: 0.837113.
+24-03-04 17:50:14.972 - INFO: Akuhamu              - PSNR: 33.867012 dB; SSIM: 0.923244; PSNR_Y: 35.747510 dB; SSIM_Y: 0.946380.
+24-03-04 17:50:16.954 - INFO: AosugiruHaru         - PSNR: 33.816309 dB; SSIM: 0.945645; PSNR_Y: 38.957263 dB; SSIM_Y: 0.976360.
+24-03-04 17:50:18.953 - INFO: AppareKappore        - PSNR: 27.673154 dB; SSIM: 0.875558; PSNR_Y: 29.606978 dB; SSIM_Y: 0.908578.
+24-03-04 17:50:20.937 - INFO: Arisa                - PSNR: 30.171135 dB; SSIM: 0.922807; PSNR_Y: 32.558021 dB; SSIM_Y: 0.953251.
+24-03-04 17:50:22.908 - INFO: BEMADER_P            - PSNR: 25.155723 dB; SSIM: 0.862246; PSNR_Y: 26.871372 dB; SSIM_Y: 0.889530.
+24-03-04 17:50:24.883 - INFO: BakuretsuKungFuGirl  - PSNR: 28.220745 dB; SSIM: 0.884842; PSNR_Y: 30.420088 dB; SSIM_Y: 0.923357.
+24-03-04 17:50:26.902 - INFO: Belmondo             - PSNR: 27.383435 dB; SSIM: 0.853104; PSNR_Y: 29.011973 dB; SSIM_Y: 0.890537.
+24-03-04 17:50:28.864 - INFO: BokuHaSitatakaKun    - PSNR: 27.215518 dB; SSIM: 0.918442; PSNR_Y: 29.064498 dB; SSIM_Y: 0.945891.
+24-03-04 17:50:30.835 - INFO: BurariTessenTorimonocho - PSNR: 26.006832 dB; SSIM: 0.831188; PSNR_Y: 27.827467 dB; SSIM_Y: 0.859648.
+24-03-04 17:50:32.806 - INFO: ByebyeC-BOY          - PSNR: 30.474740 dB; SSIM: 0.929254; PSNR_Y: 32.665965 dB; SSIM_Y: 0.956732.
+24-03-04 17:50:34.801 - INFO: Count3DeKimeteAgeru  - PSNR: 29.669720 dB; SSIM: 0.861747; PSNR_Y: 31.555471 dB; SSIM_Y: 0.901729.
+24-03-04 17:50:36.806 - INFO: DollGun              - PSNR: 26.490907 dB; SSIM: 0.883567; PSNR_Y: 28.198861 dB; SSIM_Y: 0.911255.
+24-03-04 17:50:38.790 - INFO: Donburakokko         - PSNR: 25.531417 dB; SSIM: 0.871418; PSNR_Y: 27.333455 dB; SSIM_Y: 0.900825.
+24-03-04 17:50:40.778 - INFO: DualJustice          - PSNR: 28.263994 dB; SSIM: 0.934125; PSNR_Y: 29.964916 dB; SSIM_Y: 0.947994.
+24-03-04 17:50:42.768 - INFO: EienNoWith           - PSNR: 32.400400 dB; SSIM: 0.966047; PSNR_Y: 34.023696 dB; SSIM_Y: 0.974642.
+24-03-04 17:50:44.765 - INFO: EvaLady              - PSNR: 29.212749 dB; SSIM: 0.875428; PSNR_Y: 30.630818 dB; SSIM_Y: 0.899366.
+24-03-04 17:50:46.746 - INFO: EverydayOsakanaChan  - PSNR: 30.423389 dB; SSIM: 0.962538; PSNR_Y: 32.004517 dB; SSIM_Y: 0.972454.
+24-03-04 17:50:48.713 - INFO: GOOD_KISS_Ver2       - PSNR: 29.244253 dB; SSIM: 0.893342; PSNR_Y: 31.123951 dB; SSIM_Y: 0.912771.
+24-03-04 17:50:50.710 - INFO: GakuenNoise          - PSNR: 28.764617 dB; SSIM: 0.881625; PSNR_Y: 31.075782 dB; SSIM_Y: 0.925091.
+24-03-04 17:50:52.654 - INFO: GarakutayaManta      - PSNR: 28.275492 dB; SSIM: 0.877135; PSNR_Y: 29.894626 dB; SSIM_Y: 0.909985.
+24-03-04 17:50:54.663 - INFO: GinNoChimera         - PSNR: 34.293514 dB; SSIM: 0.951474; PSNR_Y: 36.259671 dB; SSIM_Y: 0.969816.
+24-03-04 17:50:56.618 - INFO: Hamlet               - PSNR: 26.976841 dB; SSIM: 0.941763; PSNR_Y: 28.389639 dB; SSIM_Y: 0.952112.
+24-03-04 17:50:58.574 - INFO: HanzaiKousyouninMinegishiEitarou - PSNR: 28.858779 dB; SSIM: 0.912351; PSNR_Y: 30.543232 dB; SSIM_Y: 0.937215.
+24-03-04 17:51:00.535 - INFO: HaruichibanNoFukukoro - PSNR: 34.639971 dB; SSIM: 0.953402; PSNR_Y: 37.387727 dB; SSIM_Y: 0.976467.
+24-03-04 17:51:02.530 - INFO: HarukaRefrain        - PSNR: 29.624310 dB; SSIM: 0.903669; PSNR_Y: 31.273595 dB; SSIM_Y: 0.928105.
+24-03-04 17:51:04.484 - INFO: HealingPlanet        - PSNR: 30.933219 dB; SSIM: 0.932516; PSNR_Y: 32.634726 dB; SSIM_Y: 0.956367.
+24-03-04 17:51:06.443 - INFO: HeiseiJimen          - PSNR: 29.176418 dB; SSIM: 0.911717; PSNR_Y: 31.029007 dB; SSIM_Y: 0.937860.
+24-03-04 17:51:08.414 - INFO: HighschoolKimengumi_vol01 - PSNR: 24.528025 dB; SSIM: 0.901499; PSNR_Y: 26.238671 dB; SSIM_Y: 0.931537.
+24-03-04 17:51:10.377 - INFO: HighschoolKimengumi_vol20 - PSNR: 25.089672 dB; SSIM: 0.889730; PSNR_Y: 26.902948 dB; SSIM_Y: 0.919215.
+24-03-04 17:51:12.341 - INFO: HinagikuKenzan       - PSNR: 30.233995 dB; SSIM: 0.862784; PSNR_Y: 32.137485 dB; SSIM_Y: 0.887797.
+24-03-04 17:51:14.344 - INFO: HisokaReturns        - PSNR: 26.702731 dB; SSIM: 0.697234; PSNR_Y: 28.465318 dB; SSIM_Y: 0.742060.
+24-03-04 17:51:16.337 - INFO: JangiriPonpon        - PSNR: 24.690732 dB; SSIM: 0.830746; PSNR_Y: 26.019535 dB; SSIM_Y: 0.860390.
+24-03-04 17:51:18.328 - INFO: JijiBabaFight        - PSNR: 29.240116 dB; SSIM: 0.873946; PSNR_Y: 31.119731 dB; SSIM_Y: 0.907352.
+24-03-04 17:51:20.321 - INFO: Joouari              - PSNR: 25.653621 dB; SSIM: 0.825261; PSNR_Y: 27.413035 dB; SSIM_Y: 0.859125.
+24-03-04 17:51:22.271 - INFO: Jyovolley            - PSNR: 32.228674 dB; SSIM: 0.953381; PSNR_Y: 34.285698 dB; SSIM_Y: 0.967902.
+24-03-04 17:51:24.257 - INFO: KarappoHighschool    - PSNR: 32.302738 dB; SSIM: 0.937916; PSNR_Y: 34.442419 dB; SSIM_Y: 0.959566.
+24-03-04 17:51:26.253 - INFO: KimiHaBokuNoTaiyouDa - PSNR: 25.696719 dB; SSIM: 0.810118; PSNR_Y: 27.434077 dB; SSIM_Y: 0.885412.
+24-03-04 17:51:28.213 - INFO: KoukouNoHitotachi    - PSNR: 28.410103 dB; SSIM: 0.810403; PSNR_Y: 30.338359 dB; SSIM_Y: 0.854706.
+24-03-04 17:51:30.208 - INFO: KuroidoGanka         - PSNR: 30.517531 dB; SSIM: 0.880349; PSNR_Y: 32.415642 dB; SSIM_Y: 0.908830.
+24-03-04 17:51:32.175 - INFO: KyokugenCyclone      - PSNR: 19.124169 dB; SSIM: 0.693983; PSNR_Y: 20.648749 dB; SSIM_Y: 0.725531.
+24-03-04 17:51:34.148 - INFO: LancelotFullThrottle - PSNR: 32.553439 dB; SSIM: 0.954234; PSNR_Y: 34.487882 dB; SSIM_Y: 0.973718.
+24-03-04 17:51:36.117 - INFO: LoveHina_vol01       - PSNR: 23.540962 dB; SSIM: 0.904300; PSNR_Y: 24.867436 dB; SSIM_Y: 0.914394.
+24-03-04 17:51:38.105 - INFO: LoveHina_vol14       - PSNR: 25.586356 dB; SSIM: 0.866658; PSNR_Y: 27.144934 dB; SSIM_Y: 0.887620.
+24-03-04 17:51:40.090 - INFO: MAD_STONE            - PSNR: 31.641764 dB; SSIM: 0.917815; PSNR_Y: 34.195612 dB; SSIM_Y: 0.948853.
+24-03-04 17:51:42.077 - INFO: MadouTaiga           - PSNR: 25.030101 dB; SSIM: 0.810511; PSNR_Y: 26.804134 dB; SSIM_Y: 0.864007.
+24-03-04 17:51:44.055 - INFO: MagicStarGakuin      - PSNR: 26.467712 dB; SSIM: 0.877105; PSNR_Y: 28.227732 dB; SSIM_Y: 0.909485.
+24-03-04 17:51:46.051 - INFO: MagicianLoad         - PSNR: 24.963160 dB; SSIM: 0.713771; PSNR_Y: 26.444762 dB; SSIM_Y: 0.755508.
+24-03-04 17:51:48.055 - INFO: MariaSamaNihaNaisyo  - PSNR: 28.077354 dB; SSIM: 0.918303; PSNR_Y: 29.684516 dB; SSIM_Y: 0.942234.
+24-03-04 17:51:50.057 - INFO: MayaNoAkaiKutsu      - PSNR: 31.121125 dB; SSIM: 0.921750; PSNR_Y: 33.036753 dB; SSIM_Y: 0.942289.
+24-03-04 17:51:52.019 - INFO: MemorySeijin         - PSNR: 34.596892 dB; SSIM: 0.875782; PSNR_Y: 36.169948 dB; SSIM_Y: 0.902561.
+24-03-04 17:51:53.984 - INFO: MeteoSanStrikeDesu   - PSNR: 32.435854 dB; SSIM: 0.938786; PSNR_Y: 34.992996 dB; SSIM_Y: 0.960122.
+24-03-04 17:51:55.980 - INFO: MiraiSan             - PSNR: 21.078495 dB; SSIM: 0.659670; PSNR_Y: 22.355897 dB; SSIM_Y: 0.704095.
+24-03-04 17:51:57.952 - INFO: MisutenaideDaisy     - PSNR: 31.017071 dB; SSIM: 0.951747; PSNR_Y: 32.626908 dB; SSIM_Y: 0.963086.
+24-03-04 17:51:59.910 - INFO: MoeruOnisan_vol01    - PSNR: 28.824395 dB; SSIM: 0.907707; PSNR_Y: 30.720460 dB; SSIM_Y: 0.944047.
+24-03-04 17:52:01.900 - INFO: MoeruOnisan_vol19    - PSNR: 29.146818 dB; SSIM: 0.908073; PSNR_Y: 31.308507 dB; SSIM_Y: 0.937480.
+24-03-04 17:52:03.872 - INFO: MomoyamaHaikagura    - PSNR: 21.981020 dB; SSIM: 0.739602; PSNR_Y: 23.460385 dB; SSIM_Y: 0.750079.
+24-03-04 17:52:05.858 - INFO: MukoukizuNoChonbo    - PSNR: 31.140696 dB; SSIM: 0.952888; PSNR_Y: 32.854818 dB; SSIM_Y: 0.968166.
+24-03-04 17:52:07.815 - INFO: MutekiBoukenSyakuma  - PSNR: 29.405940 dB; SSIM: 0.909291; PSNR_Y: 31.356383 dB; SSIM_Y: 0.942363.
+24-03-04 17:52:09.810 - INFO: Nekodama             - PSNR: 28.542782 dB; SSIM: 0.920948; PSNR_Y: 30.263506 dB; SSIM_Y: 0.945638.
+24-03-04 17:52:11.810 - INFO: NichijouSoup         - PSNR: 32.314147 dB; SSIM: 0.945473; PSNR_Y: 34.353400 dB; SSIM_Y: 0.964548.
+24-03-04 17:52:13.770 - INFO: Ningyoushi           - PSNR: 31.801509 dB; SSIM: 0.901473; PSNR_Y: 33.631736 dB; SSIM_Y: 0.923707.
+24-03-04 17:52:15.746 - INFO: OL_Lunch             - PSNR: 23.051824 dB; SSIM: 0.902337; PSNR_Y: 24.753701 dB; SSIM_Y: 0.923531.
+24-03-04 17:52:17.718 - INFO: OhWareraRettouSeitokai - PSNR: 29.405234 dB; SSIM: 0.909030; PSNR_Y: 31.517467 dB; SSIM_Y: 0.936002.
+24-03-04 17:52:19.681 - INFO: PLANET7              - PSNR: 30.572778 dB; SSIM: 0.892862; PSNR_Y: 32.489454 dB; SSIM_Y: 0.927167.
+24-03-04 17:52:21.668 - INFO: ParaisoRoad          - PSNR: 28.973435 dB; SSIM: 0.904639; PSNR_Y: 31.132063 dB; SSIM_Y: 0.935488.
+24-03-04 17:52:23.641 - INFO: PikaruGenkiDesu      - PSNR: 26.312462 dB; SSIM: 0.893254; PSNR_Y: 27.926361 dB; SSIM_Y: 0.915610.
+24-03-04 17:52:25.603 - INFO: PlatinumJungle       - PSNR: 28.609248 dB; SSIM: 0.905562; PSNR_Y: 30.496111 dB; SSIM_Y: 0.933065.
+24-03-04 17:52:27.149 - INFO: PrayerHaNemurenai    - PSNR: 26.105405 dB; SSIM: 0.674815; PSNR_Y: 27.748219 dB; SSIM_Y: 0.707315.
+24-03-04 17:52:29.119 - INFO: PrismHeart           - PSNR: 32.522236 dB; SSIM: 0.934414; PSNR_Y: 34.252379 dB; SSIM_Y: 0.955625.
+24-03-04 17:52:31.092 - INFO: PsychoStaff          - PSNR: 31.396446 dB; SSIM: 0.928054; PSNR_Y: 33.132156 dB; SSIM_Y: 0.947251.
+24-03-04 17:52:33.090 - INFO: Raphael              - PSNR: 26.015825 dB; SSIM: 0.854415; PSNR_Y: 27.580920 dB; SSIM_Y: 0.882759.
+24-03-04 17:52:35.063 - INFO: ReveryEarth          - PSNR: 27.627024 dB; SSIM: 0.859807; PSNR_Y: 29.176478 dB; SSIM_Y: 0.892456.
+24-03-04 17:52:37.067 - INFO: RinToSiteSippuNoNaka - PSNR: 28.380338 dB; SSIM: 0.903590; PSNR_Y: 29.890866 dB; SSIM_Y: 0.929089.
+24-03-04 17:52:39.049 - INFO: RisingGirl           - PSNR: 27.118515 dB; SSIM: 0.841005; PSNR_Y: 29.721699 dB; SSIM_Y: 0.875842.
+24-03-04 17:52:41.025 - INFO: Saisoku              - PSNR: 25.639724 dB; SSIM: 0.753719; PSNR_Y: 28.014554 dB; SSIM_Y: 0.807500.
+24-03-04 17:52:43.012 - INFO: SaladDays_vol01      - PSNR: 28.856650 dB; SSIM: 0.908633; PSNR_Y: 30.535675 dB; SSIM_Y: 0.928428.
+24-03-04 17:52:44.978 - INFO: SaladDays_vol18      - PSNR: 28.965748 dB; SSIM: 0.920347; PSNR_Y: 30.640965 dB; SSIM_Y: 0.936207.
+24-03-04 17:52:46.963 - INFO: SamayoeruSyonenNiJunaiWo - PSNR: 27.842258 dB; SSIM: 0.840514; PSNR_Y: 29.567399 dB; SSIM_Y: 0.868894.
+24-03-04 17:52:48.971 - INFO: SeisinkiVulnus       - PSNR: 29.794063 dB; SSIM: 0.868956; PSNR_Y: 31.457475 dB; SSIM_Y: 0.899919.
+24-03-04 17:52:50.977 - INFO: ShimatteIkouze_vol01 - PSNR: 28.842589 dB; SSIM: 0.928365; PSNR_Y: 30.862178 dB; SSIM_Y: 0.955956.
+24-03-04 17:52:52.944 - INFO: ShimatteIkouze_vol26 - PSNR: 25.267094 dB; SSIM: 0.912459; PSNR_Y: 26.871997 dB; SSIM_Y: 0.937814.
+24-03-04 17:52:54.938 - INFO: SonokiDeABC          - PSNR: 29.868651 dB; SSIM: 0.894022; PSNR_Y: 31.941136 dB; SSIM_Y: 0.926482.
+24-03-04 17:52:56.925 - INFO: SyabondamaKieta      - PSNR: 26.504773 dB; SSIM: 0.840089; PSNR_Y: 28.189414 dB; SSIM_Y: 0.866918.
+24-03-04 17:52:58.902 - INFO: TaiyouNiSmash        - PSNR: 32.167886 dB; SSIM: 0.923967; PSNR_Y: 35.246752 dB; SSIM_Y: 0.949478.
+24-03-04 17:53:00.873 - INFO: TapkunNoTanteisitsu  - PSNR: 31.413009 dB; SSIM: 0.937433; PSNR_Y: 33.290523 dB; SSIM_Y: 0.959720.
+24-03-04 17:53:02.861 - INFO: TasogareTsushin      - PSNR: 28.200872 dB; SSIM: 0.897307; PSNR_Y: 29.984066 dB; SSIM_Y: 0.920242.
+24-03-04 17:53:05.012 - INFO: TennenSenshiG        - PSNR: 23.051578 dB; SSIM: 0.801158; PSNR_Y: 24.799497 dB; SSIM_Y: 0.851771.
+24-03-04 17:53:07.026 - INFO: TensiNoHaneToAkumaNoShippo - PSNR: 26.640975 dB; SSIM: 0.883299; PSNR_Y: 28.163919 dB; SSIM_Y: 0.901634.
+24-03-04 17:53:09.053 - INFO: TetsuSan             - PSNR: 25.328807 dB; SSIM: 0.929167; PSNR_Y: 26.777677 dB; SSIM_Y: 0.943041.
+24-03-04 17:53:11.070 - INFO: ThatsIzumiko_000     - PSNR: 18.866354 dB; SSIM: 0.686117; PSNR_Y: 20.697566 dB; SSIM_Y: 0.717973.
+24-03-04 17:53:13.163 - INFO: TotteokiNoABC        - PSNR: 30.430280 dB; SSIM: 0.922358; PSNR_Y: 32.804007 dB; SSIM_Y: 0.950007.
+24-03-04 17:53:15.359 - INFO: ToutaMairimasu       - PSNR: 24.423692 dB; SSIM: 0.838072; PSNR_Y: 26.090975 dB; SSIM_Y: 0.876280.
+24-03-04 17:53:17.429 - INFO: TouyouKidan          - PSNR: 27.474429 dB; SSIM: 0.858582; PSNR_Y: 29.528658 dB; SSIM_Y: 0.905959.
+24-03-04 17:53:19.452 - INFO: TsubasaNoKioku       - PSNR: 30.334739 dB; SSIM: 0.823415; PSNR_Y: 32.324783 dB; SSIM_Y: 0.870879.
+24-03-04 17:53:21.488 - INFO: UchiNoNyansDiary_000 - PSNR: 27.247799 dB; SSIM: 0.948118; PSNR_Y: 28.731213 dB; SSIM_Y: 0.962296.
+24-03-04 17:53:23.514 - INFO: UchuKigekiM774       - PSNR: 24.316260 dB; SSIM: 0.719026; PSNR_Y: 25.872965 dB; SSIM_Y: 0.758236.
+24-03-04 17:53:25.509 - INFO: UltraEleven          - PSNR: 21.603608 dB; SSIM: 0.845848; PSNR_Y: 23.156560 dB; SSIM_Y: 0.881031.
+24-03-04 17:53:27.515 - INFO: UnbalanceTokyo       - PSNR: 25.432030 dB; SSIM: 0.872953; PSNR_Y: 27.015269 dB; SSIM_Y: 0.895060.
+24-03-04 17:53:29.538 - INFO: WarewareHaOniDearu   - PSNR: 20.208955 dB; SSIM: 0.737428; PSNR_Y: 22.464587 dB; SSIM_Y: 0.799121.
+24-03-04 17:53:31.659 - INFO: YamatoNoHane         - PSNR: 33.444910 dB; SSIM: 0.949803; PSNR_Y: 36.223312 dB; SSIM_Y: 0.974098.
+24-03-04 17:53:33.629 - INFO: YasasiiAkuma         - PSNR: 27.129593 dB; SSIM: 0.878693; PSNR_Y: 28.407227 dB; SSIM_Y: 0.903320.
+24-03-04 17:53:35.601 - INFO: YouchienBoueigumi    - PSNR: 31.077760 dB; SSIM: 0.945906; PSNR_Y: 33.229628 dB; SSIM_Y: 0.976309.
+24-03-04 17:53:37.605 - INFO: YoumaKourin          - PSNR: 27.143748 dB; SSIM: 0.853688; PSNR_Y: 29.164288 dB; SSIM_Y: 0.880080.
+24-03-04 17:53:39.594 - INFO: YukiNoFuruMachi      - PSNR: 33.652507 dB; SSIM: 0.904297; PSNR_Y: 36.323600 dB; SSIM_Y: 0.934985.
+24-03-04 17:53:41.595 - INFO: YumeNoKayoiji        - PSNR: 29.446700 dB; SSIM: 0.820055; PSNR_Y: 31.268306 dB; SSIM_Y: 0.854596.
+24-03-04 17:53:43.613 - INFO: YumeiroCooking       - PSNR: 24.782209 dB; SSIM: 0.860476; PSNR_Y: 27.312714 dB; SSIM_Y: 0.888413.
+24-03-04 17:53:43.731 - INFO: ----Average PSNR/SSIM results for Manga109----
+	PSNR: 28.171641 dB; SSIM: 0.875016
+
+24-03-04 17:53:43.731 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 30.058039 dB; SSIM_Y: 0.903823
+
